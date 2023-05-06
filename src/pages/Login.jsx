@@ -19,7 +19,6 @@ function Login() {
           navigate("/");
         }
       } catch (error) {
-        alert(error);
         console.log(localStorage.getItem("access_token"));
       }
     })();

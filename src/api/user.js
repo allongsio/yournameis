@@ -25,4 +25,10 @@ const confirm = async (authorization) => {
   }
 };
 
-export { login, confirm };
+//전체 조회
+const getUsers = async () => {
+  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users`);
+  console.log(response.data);
+  return response.data;
+};
+export { login, confirm, getUsers };

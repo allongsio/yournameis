@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "username": "항해99",
+      "specialty": "Spring",
+      "mbti": "ENFP"
+    },
+    { "username": "14기", "specialty": "React", "mbti": "INFP" }
+  ]
+}
