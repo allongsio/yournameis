@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import signupinput from "../../modules/modules";
 
 const store = configureStore({
-  reducer: {},
+  reducer: { signupinput },
 });
 
 export default store;
