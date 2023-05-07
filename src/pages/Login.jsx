@@ -50,7 +50,7 @@ function Login() {
   };
 
   const JoinButtonhandler = () => {
-    navigate("/Join");
+    navigate("/SignUp");
   };
 
   return (

@@ -1,5 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
 import { useQuery } from "react-query";
 import { getUsers } from "../api/user";
 import styled from "styled-components";
@@ -17,15 +16,15 @@ function Main() {
   }
   return (
     <div>
-    <Header />
+      <Header />
       <h1>전체 user 목록</h1>
       <div>
         {data?.map((item) => {
           return <User key={item.id} user={item} />;
         })}
       </div>
-      </div>
-  )
+    </div>
+  );
 }
 
 export default Main;
