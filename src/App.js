@@ -2,11 +2,11 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Routers from "./shared/Router";
 
-const queryclient = new QueryClient();
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryclient}>
+    <QueryClientProvider client={queryClient}>
       <Routers />
     </QueryClientProvider>
   );
