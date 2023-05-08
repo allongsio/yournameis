@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { getUsers } from "../api/user";
 import styled from "styled-components";
@@ -6,25 +6,52 @@ import User from "../components/User";
 import Header from "../components/Header";
 
 function Main() {
-  /*   const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [searchList, setSearchList] = useState([]);
-  const SearchButtonClick = (e) => {
-    e.preventDefault();
-  }; */
+  const [isSearching, setIsSearching] = useState(false);
   const { isLoading, isError, data } = useQuery("users", getUsers);
+
+  /* const searchList = () =>{
+const filtered = sampleData.filter((itemList) => {
+  return itemList.name.toUpperCase().includes(userInput.toUpperCase());
+return (
+  <div className="cardList">
+    {filtered.map((itemList) => {
+      return <Card key={itemList.id} {...itemList} />;
+    })}
+  </div>
+} */
+
+  const SearchButtonClick = async (e) => {
+    e.preventDefault();
+    const filtered = data.filter((user) => {
+      return user.username.includes(name);
+    });
+
+    setSearchList(filtered);
+    setIsSearching(true);
+    setName("");
+  };
   if (isLoading) {
     return <h1> Loading...! </h1>;
   }
   if (isError) {
     return <h1> Error...! </h1>;
   }
+  /*  const foundItem = data.find((user) => user.username === name); */
 
   return (
     <div>
       <Header />
       <MainWrapper>
-        <h1>전체 user 목록</h1>
-        {/* <form>
+        <All
+          onClick={() => {
+            setIsSearching(false);
+          }}
+        >
+          전체 user 목록
+        </All>
+        <FormContainer>
           <label htmlFor="name">이름 : </label>
           <input
             type="text"
@@ -33,15 +60,26 @@ function Main() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            placeholder="이름"
+            placeholder="유저를 검색해보세요!"
           />
-          <button onClick={SearchButtonHandler}> 검색 </button>
-        </form> */}
-        <UserList>
-          {data?.map((item) => {
-            return <User key={item.id} user={item} user_id={item.id} />;
-          })}
-        </UserList>
+          <button onClick={SearchButtonClick} disabled={name.length === 0}>
+            검색
+          </button>
+        </FormContainer>
+
+        {!isSearching ? (
+          <UserList>
+            {data?.map((item) => {
+              return <User key={item.id} user={item} />;
+            })}
+          </UserList>
+        ) : (
+          <UserList>
+            {searchList?.map((item) => {
+              return <User key={item.id} user={item} />;
+            })}
+          </UserList>
+        )}
       </MainWrapper>
     </div>
   );
@@ -57,12 +95,73 @@ const MainWrapper = styled.div`
 `;
 
 const UserList = styled.div`
-  /*   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 30px; */
   display: flex;
   flex-wrap: wrap;
   margin: 10px;
-  gap: 20px;
+  gap: 30px;
+`;
+
+const All = styled.div`
+  &:hover {
+    color: #2c84be;
+  }
+  font-size: 27px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  cursor: pointer;
+`;
+
+const FormContainer = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    flex: 1;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4c98af;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #4b9dbd;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 `;
