@@ -13,7 +13,7 @@ function User({ user }) {
   return (
     <UserCard onClick={handleDetailPageLinkClick}>
       <UserInfo>
-        <img src={user.avatar} width="100px" />
+        <img src={user.avatar} width='100px' />
         <UserName>{user.username}</UserName>
         <UserSpecialty>주특기 : {user.specialty}</UserSpecialty>
         <UserMbti>MBTI : {user.mbti}</UserMbti>

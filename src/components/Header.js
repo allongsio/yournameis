@@ -1,37 +1,44 @@
 import React from "react";
 import styled from "styled-components";
 import HomeIcon from "../ele/homeIcon";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // 로그아웃 버튼
   const logOutButtonHandler = () => {
     localStorage.removeItem("access_token");
     navigate("/Login");
   };
   return (
-    <div>
-      <HeaderWrapper>
-        <div onClick={() => navigate("/")} id='header-title'>
-          <HomeIcon />
-          &nbsp; 너의 이름은
-        </div>
-        <div id='nav-bar'>
-          <div onClick={() => navigate("/")} className='odd'>
-            HOME
+    // 로그인 페이지, 회원가입 페이지에서는 랜더링 되지 않도록
+    location.pathname !== "/Login" &&
+    location.pathname !== "/SignUp" && (
+      <div>
+        <HeaderWrapper>
+          <div onClick={() => navigate("/")} id='header-title'>
+            <HomeIcon />
+            &nbsp; 너의 이름은
           </div>
-          <div onClick={() => navigate("/Board")} className='even'>
-            BOARD
+          <div id='nav-bar'>
+            <div onClick={() => navigate("/")} className='odd'>
+              HOME
+            </div>
+            <div onClick={() => navigate("/Board")} className='even'>
+              BOARD
+            </div>
+            <div onClick={() => navigate("/MyPage")} className='odd'>
+              MY PAGE
+            </div>
+            <div onClick={logOutButtonHandler} className='even'>
+              LOGOUT
+            </div>
           </div>
-          <div onClick={() => navigate("/MyPage")} className='odd'>
-            MY PAGE
-          </div>
-          <div onClick={logOutButtonHandler} className='even'>
-            LOGOUT
-          </div>
-        </div>
-      </HeaderWrapper>
-    </div>
+        </HeaderWrapper>
+      </div>
+    )
   );
 }
 
