@@ -108,7 +108,6 @@ const SignUpInputWrapper = styled.div`
     font-size: 20px;
     font-weight: 400;
     margin-right: 20px;
-    color: ${(props) => props?.mandatory && "#FF4500"};
   }
 
   #signup-mypage-input {
@@ -118,7 +117,6 @@ const SignUpInputWrapper = styled.div`
 
   input::placeholder {
     text-align: center;
-    color: ${(props) => props?.mandatory && "#FF4500"};
   }
 `;
 
