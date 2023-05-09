@@ -6,13 +6,13 @@ function User({ user }, user_id) {
   const navigate = useNavigate();
 
   const handleDetailPageLinkClick = () => {
-    navigate(`/user/${user_id}`);
+    navigate(`/Detail/${user_id}`);
   };
 
   return (
     <UserCard onClick={handleDetailPageLinkClick}>
       <UserInfo>
-        <img src={user.avatar} width="100px" />
+        <img src={user.avatar} width='100px' />
         <UserName>{user.username}</UserName>
         <UserSpecialty>주특기 : {user.specialty}</UserSpecialty>
         <UserMbti>MBTI : {user.mbti}</UserMbti>
