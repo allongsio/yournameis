@@ -6,10 +6,12 @@ import Main from "../pages/Main";
 import Board from "../pages/Board";
 import Detail from "../pages/Detail";
 import MyPage from "../pages/MyPage";
+import Header from "../components/Header";
 
 function Routers() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/Login" element={<Login />} />

@@ -13,12 +13,19 @@ const login = async (user) => {
     return Promise.reject(error.response.data.message);
   }
 };
-
-// 유저 인증 확인
-const confirm = async (authorization) => {
+//사용자 전체 조회
+const getUsers = async () => {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/api/users`
+  );
+  console.log(response.data);
+  return response.data;
+};
+//마이페이지 조회
+const getMyInfo = async (authorization) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/user`,
+      `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
       {
         headers: {
           authorization: `Bearer ${authorization}`,
@@ -31,12 +38,22 @@ const confirm = async (authorization) => {
   }
 };
 
-//전체 조회
-const getUsers = async () => {
-  const response = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/api/users`
-  );
-  console.log(response.data);
-  return response.data;
+// 마이페이지 수정
+const updateMyInfo = async (authorization, newinfo) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
+      newinfo,
+      {
+        headers: {
+          authorization: `Bearer ${authorization}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response.data.message);
+  }
 };
-export { login, confirm, getUsers };
+
+export { login, getUsers, getMyInfo, updateMyInfo };

@@ -7,7 +7,7 @@ function User({ user }) {
   const user_id = user.userId;
 
   const handleDetailPageLinkClick = () => {
-    navigate(`/user/${user_id}`);
+    navigate(`/Detail/${user_id}`);
   };
 
   return (

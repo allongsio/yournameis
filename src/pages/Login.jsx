@@ -9,7 +9,7 @@ function Login() {
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
 
-  // 로그인 했을 때, 로그인페이지 접근 못하게
+  /*  // 로그인 했을 때, 로그인페이지 접근 못하게
   useEffect(() => {
     (async () => {
       try {
@@ -23,11 +23,12 @@ function Login() {
       }
     })();
   }, []);
-
+ */
   const mutationLogin = useMutation(login, {
     onSuccess: (response) => {
       console.log(response);
       localStorage.setItem("access_token", response.token);
+      //localStorage.setItem("id", response.id);
       alert("로그인에 성공하셨습니다!");
       navigate("/");
     },

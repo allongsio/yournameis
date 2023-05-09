@@ -14,16 +14,13 @@ function SignUpInput({ item }) {
 
   return (
     <SignUpInputWrapper mandatory={item.mandatory}>
-      <span>
-        {item.title}
-        {item.mandatory && "*"}
-      </span>
+      <span>{item.title}</span>
       <input
         data-title={item.type}
         onChange={(e) => onChangeHandler(e)}
-        type='text'
-        id='signup-mypage-input'
-        placeholder='내용을 입력해주세요'
+        type="text"
+        id="signup-mypage-input"
+        placeholder="내용을 입력해주세요"
       />
     </SignUpInputWrapper>
   );
@@ -38,7 +35,6 @@ const SignUpInputWrapper = styled.div`
     font-size: 20px;
     font-weight: 400;
     margin-right: 20px;
-    color: ${(props) => props?.mandatory && "#FF4500"};
   }
 
   #signup-mypage-input {
@@ -48,7 +44,6 @@ const SignUpInputWrapper = styled.div`
 
   input::placeholder {
     text-align: center;
-    color: ${(props) => props?.mandatory && "#FF4500"};
   }
 `;
 
