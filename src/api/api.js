@@ -3,12 +3,14 @@ import axios from "axios";
 // 회원가입API, method : post, url : /api/auto/signup
 const signup = async (userInfo) => {
   try {
+    console.log(process.env);
     const response = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
       userInfo
     );
     return response.data;
   } catch (error) {
+    console.log(error);
     return Promise.reject(error.response.data.message);
   }
 };
