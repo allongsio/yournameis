@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 function Login() {
   const navigate = useNavigate();
-  const [userid, setUserid] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
   /*  // 로그인 했을 때, 로그인페이지 접근 못하게
@@ -34,15 +34,15 @@ function Login() {
     },
     onError: (error) => {
       alert(error);
-      setUserid("");
+      setUserId("");
       setPassword("");
     },
   });
 
-  const user = { userid, password };
+  const user = { userId, password };
   const LoginButtonHandler = (event) => {
     event.preventDefault();
-    if (!userid || !password) {
+    if (!userId || !password) {
       alert("아이디와 패스워드값을 모두 입력해주세요!");
       return;
     } else {
@@ -58,13 +58,13 @@ function Login() {
     <Container>
       <FormContainer>
         <Form>
-          <Label htmlFor="userid">ID</Label>
+          <Label htmlFor="userId">ID</Label>
           <Input
             type="text"
-            value={userid}
-            id="userid"
+            value={userId}
+            id="userId"
             onChange={(e) => {
-              setUserid(e.target.value);
+              setUserId(e.target.value);
             }}
             placeholder="아이디"
           />
