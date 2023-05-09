@@ -18,7 +18,7 @@ const getUsers = async () => {
   const response = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/api/users`
   );
-  console.log(response.data);
+
   return response.data;
 };
 //마이페이지 조회
@@ -39,11 +39,11 @@ const getMyInfo = async (authorization) => {
 };
 
 // 마이페이지 수정
-const updateMyInfo = async (authorization, newinfo) => {
+const updateMyInfo = async (authorization, newInfo) => {
   try {
     const response = await axios.patch(
       `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
-      newinfo,
+      newInfo,
       {
         headers: {
           authorization: `Bearer ${authorization}`,
