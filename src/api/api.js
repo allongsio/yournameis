@@ -68,4 +68,50 @@ const replyLike = async (user_id, replyId) => {
   }
 };
 
-export { signup, detailRequest, replySubmit, replyDelete, replyLike };
+// 게시글 조회api, method : get, url : /api/board
+const postingRequest = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/api/board`
+    );
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response);
+  }
+};
+
+// 게시글 추가api, method : post, url : /api/board
+const postingPost = async (posting) => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/board`,
+      posting
+    );
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response);
+  }
+};
+
+// 게시글 삭제api, method : delete, url : /api/auth/userdelete
+const postingDelete = async (post_id) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_SERVER_URL}/api/board/${post_id}`
+    );
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error.response);
+  }
+};
+
+export {
+  signup,
+  detailRequest,
+  replySubmit,
+  replyDelete,
+  replyLike,
+  postingRequest,
+  postingPost,
+  postingDelete,
+};

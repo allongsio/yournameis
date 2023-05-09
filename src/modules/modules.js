@@ -11,7 +11,6 @@ const inputSlice = createSlice({
         ...state.signupInfo,
         [action.payload.title]: action.payload.content,
       };
-      console.log(state.signupInfo);
     },
   },
 });

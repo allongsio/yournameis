@@ -19,13 +19,6 @@ function Detail() {
   // 현재 로컬 스토리지의 액세스 토큰 추출
   const authorization = localStorage.getItem("access_token");
 
-  // const { isLoading, isError, data } = useQuery("detail", detailRequest(user_id, authorization));
-  // if (isLoading) {
-  //   return <p>로딩중입니다!</p>;
-  // }
-  // if (isError) {
-  //   return <p>오류가 발생하였습니다!</p>;
-  // }
   const data = {
     username: "항해99",
     specialty: "Spring",
@@ -48,9 +41,6 @@ function Detail() {
     ["Blog URL", data.blogUrl],
     ["E-mail", data.email],
   ];
-
-  // 댓글에 대한 데이터만 따로 추출
-  const dataComment = data.comment;
 
   // input값 상태관리
   const [input, setInput] = useState("");
@@ -92,6 +82,14 @@ function Detail() {
     const replyId = e.target.dataset.id;
     replyLikeApi.mutate(user_id, replyId);
   };
+
+  // const { isLoading, isError, data } = useQuery("detail", detailRequest(user_id, authorization));
+  // if (isLoading) {
+  //   return <p>로딩중입니다!</p>;
+  // }
+  // if (isError) {
+  //   return <p>오류가 발생하였습니다!</p>;
+  // }
 
   return (
     <div>
