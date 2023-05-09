@@ -28,6 +28,7 @@ function SignUp() {
     (state) => state.signupinput.signupInfo
   );
   const { passwordConfirm, ...otherInput } = userInfoIncludeConfirm;
+  console.log(userInfoIncludeConfirm);
 
   // 제출 성공시, 제출 실패시
   const mutation = useMutation(signup, {
@@ -57,6 +58,7 @@ function SignUp() {
         alert("패스워드가 일치 하지 않습니다! 패스워드를 확인해주세요!");
       } else {
         const userInfo = { ...otherInput };
+        console.log(userInfo);
         mutation.mutate(userInfo);
       }
     } else {

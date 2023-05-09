@@ -108,7 +108,7 @@ function Detail() {
               </button>
             </div>
             {data.comment.map((item, index) => (
-              <IndividualReply key={item.id}>
+              <IndividualReply key={index + 1}>
                 <div>
                   <span className='commentName'>{item.author}</span>
                   &nbsp;&nbsp;&nbsp;
