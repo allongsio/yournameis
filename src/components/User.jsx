@@ -2,8 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function User({ user }, user_id) {
+function User({ user }) {
   const navigate = useNavigate();
+  const user_id = user.userId;
 
   const handleDetailPageLinkClick = () => {
     navigate(`/Detail/${user_id}`);
@@ -20,7 +21,6 @@ function User({ user }, user_id) {
     </UserCard>
   );
 }
-
 export default User;
 
 const UserCard = styled.div`
@@ -32,20 +32,9 @@ const UserCard = styled.div`
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
   padding: 20px;
   text-align: center;
-  width: calc(20% - 60px);
+  width: 200px;
   border-radius: 5px;
   cursor: pointer;
-  /*   
-  width: calc(20% - 20px);
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
-  text-align: center;
-  h4 {
-    margin: 0;
-  } */
 `;
 
 const UserInfo = styled.div`

@@ -33,7 +33,9 @@ const confirm = async (authorization) => {
 
 //전체 조회
 const getUsers = async () => {
-  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users`);
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/api/users`
+  );
   console.log(response.data);
   return response.data;
 };
