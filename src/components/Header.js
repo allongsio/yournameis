@@ -7,11 +7,13 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 로그아웃 버튼
   const logOutButtonHandler = () => {
     localStorage.removeItem("access_token");
     navigate("/Login");
   };
   return (
+    // 로그인 페이지, 회원가입 페이지에서는 랜더링 되지 않도록
     location.pathname !== "/Login" &&
     location.pathname !== "/SignUp" && (
       <div>

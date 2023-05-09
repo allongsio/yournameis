@@ -22,10 +22,14 @@ function SignUp() {
   ];
 
   const navigate = useNavigate();
+
+  // PW확인 입력값만 제외
   const userInfoIncludeConfirm = useSelector(
     (state) => state.signupinput.signupInfo
   );
   const { passwordConfirm, ...otherInput } = userInfoIncludeConfirm;
+
+  // 제출 성공시, 제출 실패시
   const mutation = useMutation(signup, {
     onSuccess: () => {
       alert("회원가입이 완료되었습니다.");

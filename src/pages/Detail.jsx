@@ -12,8 +12,11 @@ import { detailRequest, replySubmit, replyDelete, replyLike } from "../api/api";
 import { LikeIcon } from "../ele/LikeIcon";
 
 function Detail() {
+  // 현재 페이지 URL에서 사용자 아이디 추출
   const params = useParams();
   const user_id = params.id;
+
+  // 현재 로컬 스토리지의 액세스 토큰 추출
   const authorization = localStorage.getItem("access_token");
 
   // const { isLoading, isError, data } = useQuery("detail", detailRequest(user_id, authorization));
@@ -35,6 +38,8 @@ function Detail() {
       { title: "2", author: "김형준", content: "댓글2", likeCount: 0 },
     ],
   };
+
+  // 배열화하여 map함수 돌릴 수 있도록 처리
   const dataForm = [
     ["이름", data.username],
     ["주특기", data.specialty],
@@ -44,11 +49,16 @@ function Detail() {
     ["E-mail", data.email],
   ];
 
+  // 댓글에 대한 데이터만 따로 추출
   const dataComment = data.comment;
 
+  // input값 상태관리
   const [input, setInput] = useState("");
+
+  // useQuery hook 호출
   const queryClient = useQuery();
 
+  // 댓글 작성, 삭제, 좋아요마다 invalidation 작업
   const replySubmitApi = useMutation(replySubmit, {
     onSuccess: () => {
       queryClient.invalidateQueries("detail", detailRequest);
@@ -65,15 +75,19 @@ function Detail() {
     },
   });
 
+  // 댓글 작성 버튼
   const onSubmitButtonHandler = () => {
     replySubmitApi.mutate(user_id, { content: input });
     setInput("");
   };
+
+  // 댓글 삭제 버튼
   const deleteButtonHandler = (e) => {
     const replyId = e.target.dataset.id;
     replyDeleteApi.mutate(user_id, replyId);
   };
 
+  // 댓글 좋아요 버튼
   const likeButtonHandler = (e) => {
     const replyId = e.target.dataset.id;
     replyLikeApi.mutate(user_id, replyId);

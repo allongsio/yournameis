@@ -6,6 +6,7 @@ import { setUserInfo } from "../modules/modules";
 function SignUpInput({ item }) {
   const dispatch = useDispatch();
 
+  // 각 입력칸에 대해서 리덕스로 전역 상태 관리
   const onChangeHandler = (e) => {
     dispatch(
       setUserInfo({ title: e.target.dataset.title, content: e.target.value })
