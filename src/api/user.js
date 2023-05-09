@@ -16,7 +16,7 @@ const login = async (user) => {
 //사용자 전체 조회
 const getUsers = async () => {
   const response = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/api/users`
+    `${process.env.REACT_APP_SERVER_URL}/api/members`
   );
 
   return response.data;

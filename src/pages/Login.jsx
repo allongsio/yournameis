@@ -30,7 +30,7 @@ function Login() {
       localStorage.setItem("access_token", response.token);
       //localStorage.setItem("id", response.id);
       alert("로그인에 성공하셨습니다!");
-      navigate("/");
+      navigate("/Main");
     },
     onError: (error) => {
       alert(error);

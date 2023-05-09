@@ -21,6 +21,17 @@ return (
   </div>
 } */
 
+  /* useEffect(() => {
+    (async () => {
+      try {
+        const result = await confirm(localStorage.getItem("access_token"));
+        result.status === 200 && navigate("/Main");
+      } catch (error) {
+        console.log(localStorage.getItem("access_token"));
+      }
+    })();
+  }, []);
+ */
   const SearchButtonClick = async (e) => {
     e.preventDefault();
     const filtered = data.filter((user) => {

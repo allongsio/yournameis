@@ -27,7 +27,7 @@ function MyPage() {
   useEffect(() => {
     if (authorization === null) {
       alert("토큰이 만료되었습니다!");
-      navigate("/Login");
+      navigate("/");
     }
   }, []);
 

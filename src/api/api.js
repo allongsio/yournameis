@@ -4,7 +4,7 @@ import axios from "axios";
 const signup = async (userInfo) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/auto/signup`,
+      `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
       userInfo
     );
     return response.data;
