@@ -8,7 +8,7 @@ function MyPage() {
   const authorization = localStorage.getItem("access_token");
   const [isEdit, setIsEdit] = useState(false);
   const navigate = useNavigate();
-  const data = [
+  /*   const data = [
     {
       username: "항해99",
       specialty: "Spring",
@@ -17,21 +17,21 @@ function MyPage() {
       blogUrl: "notion.so",
       email: "1234@gmail.com",
     },
-  ];
+  ]; */
   const [specialty, setSpecialty] = useState("");
   const [mbti, setMbti] = useState("");
   const [email, setEmail] = useState("");
   const [blogUrl, setBlogUrl] = useState("");
   const [gitHubUrl, setGitHubUrl] = useState("");
 
-  /*  useEffect(() => {
+  useEffect(() => {
     if (authorization === null) {
       alert("토큰이 만료되었습니다!");
       navigate("/Login");
     }
-  }, []); */
+  }, []);
 
-  //const { data } = useQuery("user", () => getMyInfo({ authorization }));
+  const { data } = useQuery("user", () => getMyInfo({ authorization }));
   const newInfo = {
     specialty,
     mbti: mbti.toUpperCase(),
@@ -42,7 +42,6 @@ function MyPage() {
 
   const mutationEdit = useMutation(updateMyInfo, {
     onSuccess: (response) => {
-      console.log(response);
       alert("회원정보가 수정되었습니다!");
       setIsEdit(false);
       navigate("/MyPage");
@@ -58,7 +57,7 @@ function MyPage() {
   });
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    mutationEdit.mutate(newInfo);
+    mutationEdit.mutate(newInfo, authorization);
   };
 
   return !isEdit ? (
