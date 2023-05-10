@@ -19,28 +19,18 @@ function Detail() {
   // 현재 로컬 스토리지의 액세스 토큰 추출
   const authorization = localStorage.getItem("access_token");
 
-  const data = {
-    username: "항해99",
-    specialty: "Spring",
-    mbti: "ENFP",
-    githubUrl: "github.com/saejhg",
-    blogUrl: "notion.so",
-    email: "1234@gmail.com",
-    comment: [
-      { title: "1", author: "김형준", content: "댓글1", likeCount: 0 },
-      { title: "2", author: "김형준", content: "댓글2", likeCount: 0 },
-    ],
-  };
-
-  // 배열화하여 map함수 돌릴 수 있도록 처리
-  const dataForm = [
-    ["이름", data.username],
-    ["주특기", data.specialty],
-    ["MBTI", data.mbti],
-    ["Github URL", data.githubUrl],
-    ["Blog URL", data.blogUrl],
-    ["E-mail", data.email],
-  ];
+  // const data = {
+  //   username: "항해99",
+  //   specialty: "Spring",
+  //   mbti: "ENFP",
+  //   githubUrl: "github.com/saejhg",
+  //   blogUrl: "notion.so",
+  //   email: "1234@gmail.com",
+  //   comment: [
+  //     { title: "1", author: "김형준", content: "댓글1", likeCount: 0 },
+  //     { title: "2", author: "김형준", content: "댓글2", likeCount: 0 },
+  //   ],
+  // };
 
   // input값 상태관리
   const [input, setInput] = useState("");
@@ -83,13 +73,26 @@ function Detail() {
     replyLikeApi.mutate(user_id, replyId);
   };
 
-  // const { isLoading, isError, data } = useQuery("detail", detailRequest(user_id, authorization));
-  // if (isLoading) {
-  //   return <p>로딩중입니다!</p>;
-  // }
-  // if (isError) {
-  //   return <p>오류가 발생하였습니다!</p>;
-  // }
+  const { isLoading, isError, data } = useQuery(
+    "detail",
+    detailRequest(user_id)
+  );
+  if (isLoading) {
+    return <p>로딩중입니다!</p>;
+  }
+  if (isError) {
+    return <p>오류가 발생하였습니다!</p>;
+  }
+
+  // 배열화하여 map함수 돌릴 수 있도록 처리
+  const dataForm = [
+    ["이름", data.user.username],
+    ["주특기", data.user.specialty],
+    ["MBTI", data.user.mbti],
+    ["Github URL", data.user.githubUrl],
+    ["Blog URL", data.user.blogUrl],
+    ["E-mail", data.user.email],
+  ];
 
   return (
     <div>

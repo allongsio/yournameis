@@ -34,7 +34,7 @@ function SignUp() {
   const mutation = useMutation(signup, {
     onSuccess: () => {
       alert("회원가입이 완료되었습니다.");
-      navigate("/Login");
+      navigate("/");
     },
     onError: (error) => {
       alert(error);
@@ -69,7 +69,7 @@ function SignUp() {
   return (
     <SignUpWrapper>
       <h1>회원가입</h1>
-      <div id="left-n-right">
+      <div id='left-n-right'>
         <div>
           {userInfoForm.slice(0, 6).map((item) => {
             return <SignUpInput key={item.title} item={item}></SignUpInput>;

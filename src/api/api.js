@@ -17,11 +17,11 @@ const signup = async (userInfo) => {
 };
 
 // 사용자 상세 조회api, method : get, url : /api/user/{user_id}
-const detailRequest = async (user_id, authorization) => {
+const detailRequest = async (user_id) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}api/user/{${user_id}}`,
-      { headers: { Access_Token: `Bearer {${authorization}}` } }
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}`
+      // { headers: { Access_Token: `Bearer ${authorization}` } }
     );
     return response.data;
   } catch (error) {
@@ -84,11 +84,17 @@ const postingRequest = async () => {
 };
 
 // 게시글 추가api, method : post, url : /api/board
-const postingPost = async (posting) => {
+const postingPost = async ({ posting, authorization }) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/api/board`,
-      posting
+      posting,
+      {
+        headers: {
+          Access_Token: `${authorization.access_token}`,
+          Refresh_Token: `${authorization.refresh_token}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -97,10 +103,17 @@ const postingPost = async (posting) => {
 };
 
 // 게시글 삭제api, method : delete, url : /api/auth/userdelete
-const postingDelete = async (post_id) => {
+const postingDelete = async ({ post_id, authorization }) => {
+  console.log(post_id);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}/api/board/${post_id}`
+      `${process.env.REACT_APP_SERVER_URL}/api/board/${post_id}`,
+      {
+        headers: {
+          Access_Token: `${authorization.access_token}`,
+          Refresh_Token: `${authorization.refresh_token}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {

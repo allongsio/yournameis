@@ -11,6 +11,11 @@ function Board() {
   // useQueryClient hoook 호출
   const queryClient = useQueryClient();
 
+  // 현재 로컬 스토리지의 액세스 토큰 추출
+  const access_token = localStorage.getItem("access_token");
+  const refresh_token = localStorage.getItem("refresh_token");
+  const authorization = { access_token, refresh_token };
+
   // 입력값 상태관리 전달
   const onChangeHandler = (e) => {
     e.target.id === "title"
@@ -34,55 +39,23 @@ function Board() {
 
   // 게시물 제출 핸들러 함수
   const onSubmitButtonClickHandler = () => {
-    postingSubmitApi.mutate(input);
-    setInput({ title: "", content: "" });
+    postingSubmitApi.mutate({ posting: input, authorization });
+    // setInput({ title: "", content: "" });
   };
 
   // 게시물 삭제 핸들러 함수
   const deleteButtonHandler = (e) => {
-    postingDeleteApi.mutate(e.target.id);
+    console.log(data);
+    postingDeleteApi.mutate({ post_id: data.data.id, authorization });
   };
 
-  // const { isLoading, isError, data } = useQuery("posting", postingRequest);
-  // if (isLoading) {
-  //   return <p>로딩중입니다!</p>;
-  // }
-  // if (isError) {
-  //   return <p>오류가 발생하였습니다!</p>;
-  // }
-
-  const data = [
-    {
-      id: 1,
-      title: "스터디 공고",
-      content: "스터디 구함",
-      author: "항해99",
-    },
-    {
-      id: 2,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-    {
-      id: 3,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-    {
-      id: 4,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-    {
-      id: 5,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-  ];
+  const { isLoading, isError, data } = useQuery("posting", postingRequest);
+  if (isLoading) {
+    return <p>로딩중입니다!</p>;
+  }
+  if (isError) {
+    return <p>오류가 발생하였습니다!</p>;
+  }
 
   return (
     <BoardWrapper>
@@ -92,7 +65,7 @@ function Board() {
         <button onClick={onSubmitButtonClickHandler}>입력</button>
       </div>
       <div id='board-card-area'>
-        {data.map((item, index) => {
+        {data.data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span

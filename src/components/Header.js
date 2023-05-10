@@ -14,7 +14,7 @@ function Header() {
   };
   return (
     // 로그인 페이지, 회원가입 페이지에서는 랜더링 되지 않도록
-    location.pathname !== "/Login" &&
+    location.pathname !== "/" &&
     location.pathname !== "/SignUp" && (
       <div>
         <HeaderWrapper>
@@ -22,6 +22,7 @@ function Header() {
             <HomeIcon />
             &nbsp; 너의 이름은
           </div>
+
           <div id="nav-bar">
             <div onClick={() => navigate("/Main")} className="odd">
               HOME
