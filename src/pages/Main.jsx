@@ -108,6 +108,7 @@ const UserList = styled.div`
   flex-wrap: wrap;
   margin: 10px;
   gap: 30px;
+  margin-left: 30px;
 `;
 
 const All = styled.div`
