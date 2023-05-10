@@ -2,11 +2,10 @@ import axios from "axios";
 
 // 회원가입API, method : post, url : /api/auto/signup
 const signup = async (userInfo) => {
-  debugger;
   try {
     console.log(process.env);
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/auth/signup`,
+      `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
       userInfo
     );
     return response.data;
@@ -23,6 +22,7 @@ const detailRequest = async (user_id) => {
       `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}`
       // { headers: { Access_Token: `Bearer ${authorization}` } }
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);
@@ -30,11 +30,17 @@ const detailRequest = async (user_id) => {
 };
 
 // 댓글 작성api, method : post, url : /api/user/{user_id}/comment
-const replySubmit = async (user_id, replyData) => {
+const replySubmit = async ({ user_id, content, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/user/${user_id}/comment`,
-      replyData
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments`,
+      { content },
+      {
+        headers: {
+          Access_Token: `${authorization.access_token}`,
+          Refresh_Token: `${authorization.refresh_token}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -43,13 +49,15 @@ const replySubmit = async (user_id, replyData) => {
 };
 
 // 댓글 삭제api, method : delete, url : /api/user/{user_id}/comment/{id}
-const replyDelete = async (user_id, replyId) => {
+const replyDelete = async ({ user_id, replyId, authorization }) => {
+  console.log(user_id, replyId, authorization);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}api/user/${user_id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments/${replyId}`,
       {
-        data: {
-          commentId: replyId,
+        headers: {
+          Access_Token: `${authorization.access_token}`,
+          Refresh_Token: `${authorization.refresh_token}`,
         },
       }
     );
@@ -77,7 +85,7 @@ const postingRequest = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}api/board`
     );
-    return response.data;
+    return response.data.data;
   } catch (error) {
     return Promise.reject(error.response);
   }

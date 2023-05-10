@@ -1,44 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  useQuery,
-  useMutation,
-  QueryClient,
-  useQueryClient,
-} from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { detailRequest, replySubmit, replyDelete, replyLike } from "../api/api";
 import { LikeIcon } from "../ele/LikeIcon";
 
 function Detail() {
-  // 현재 페이지 URL에서 사용자 아이디 추출
-  const params = useParams();
-  const user_id = params.id;
-
   // 현재 로컬 스토리지의 액세스 토큰 추출
-  const authorization = localStorage.getItem("access_token");
-
-  // const data = {
-  //   username: "항해99",
-  //   specialty: "Spring",
-  //   mbti: "ENFP",
-  //   githubUrl: "github.com/saejhg",
-  //   blogUrl: "notion.so",
-  //   email: "1234@gmail.com",
-  //   comment: [
-  //     { title: "1", author: "김형준", content: "댓글1", likeCount: 0 },
-  //     { title: "2", author: "김형준", content: "댓글2", likeCount: 0 },
-  //   ],
-  // };
+  const access_token = localStorage.getItem("access_token");
+  const refresh_token = localStorage.getItem("refresh_token");
+  const authorization = { access_token, refresh_token };
 
   // input값 상태관리
   const [input, setInput] = useState("");
 
   // useQuery hook 호출
-  const queryClient = useQuery();
+  const queryClient = useQueryClient();
 
-  // 댓글 작성, 삭제, 좋아요마다 invalidation 작업
   const replySubmitApi = useMutation(replySubmit, {
     onSuccess: () => {
       queryClient.invalidateQueries("detail", detailRequest);
@@ -57,14 +36,14 @@ function Detail() {
 
   // 댓글 작성 버튼
   const onSubmitButtonHandler = () => {
-    replySubmitApi.mutate(user_id, { content: input });
+    replySubmitApi.mutate({ user_id, content: input, authorization });
     setInput("");
   };
 
   // 댓글 삭제 버튼
   const deleteButtonHandler = (e) => {
     const replyId = e.target.dataset.id;
-    replyDeleteApi.mutate(user_id, replyId);
+    replyDeleteApi.mutate({ user_id, replyId, authorization });
   };
 
   // 댓글 좋아요 버튼
@@ -73,8 +52,11 @@ function Detail() {
     replyLikeApi.mutate(user_id, replyId);
   };
 
-  const { isLoading, isError, data } = useQuery(
-    "detail",
+  // 현재 페이지 URL에서 사용자 아이디 추출
+  const params = useParams();
+  const user_id = params.id;
+
+  const { isLoading, isError, data } = useQuery("detail", () =>
     detailRequest(user_id)
   );
   if (isLoading) {
@@ -110,10 +92,10 @@ function Detail() {
                 작성
               </button>
             </div>
-            {data.comment.map((item, index) => (
+            {data.comments.map((item, index) => (
               <IndividualReply key={index + 1}>
                 <div>
-                  <span className='commentName'>{item.author}</span>
+                  <span className='commentName'>{item.username}</span>
                   &nbsp;&nbsp;&nbsp;
                   <span className='commentContent'>{item.content}</span>
                 </div>
