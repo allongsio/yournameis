@@ -27,6 +27,7 @@ function Board() {
   const postingSubmitApi = useMutation(postingPost, {
     onSuccess: () => {
       queryClient.invalidateQueries("postingrequest", postingRequest);
+      queryClient.refetchQueries();
     },
   });
 
@@ -45,7 +46,6 @@ function Board() {
 
   // 게시물 삭제 핸들러 함수
   const deleteButtonHandler = (e) => {
-    console.log(data);
     postingDeleteApi.mutate({ post_id: data.data.id, authorization });
   };
 
@@ -65,7 +65,7 @@ function Board() {
         <button onClick={onSubmitButtonClickHandler}>입력</button>
       </div>
       <div id='board-card-area'>
-        {data.data.map((item, index) => {
+        {data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span
