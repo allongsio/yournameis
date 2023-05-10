@@ -20,7 +20,7 @@ const signup = async (userInfo) => {
 const detailRequest = async (user_id) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}`
+      `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}`
       // { headers: { Access_Token: `Bearer ${authorization}` } }
     );
     return response.data;
@@ -63,7 +63,7 @@ const replyDelete = async (user_id, replyId) => {
 const replyLike = async (user_id, replyId) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/user/${user_id}/comment/${replyId}/like`
+      `${process.env.REACT_APP_SERVER_URL}api/user/${user_id}/comment/${replyId}/like`
     );
     return response.data;
   } catch (error) {
@@ -75,7 +75,7 @@ const replyLike = async (user_id, replyId) => {
 const postingRequest = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/board`
+      `${process.env.REACT_APP_SERVER_URL}api/board`
     );
     return response.data;
   } catch (error) {
@@ -87,7 +87,7 @@ const postingRequest = async () => {
 const postingPost = async ({ posting, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/board`,
+      `${process.env.REACT_APP_SERVER_URL}api/board`,
       posting,
       {
         headers: {
@@ -107,7 +107,7 @@ const postingDelete = async ({ post_id, authorization }) => {
   console.log(post_id);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}/api/board/${post_id}`,
+      `${process.env.REACT_APP_SERVER_URL}api/board/${post_id}`,
       {
         headers: {
           Access_Token: `${authorization.access_token}`,

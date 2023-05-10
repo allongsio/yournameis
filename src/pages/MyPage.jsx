@@ -7,6 +7,9 @@ import { getMyInfo, updateMyInfo } from "../api/user";
 function MyPage() {
   const access_token = localStorage.getItem("access_token");
   const refresh_token = localStorage.getItem("refresh_token");
+  const authorization = { access_token, refresh_token };
+
+  const [item, setItem] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const navigate = useNavigate();
   /*   const data = [
@@ -22,8 +25,8 @@ function MyPage() {
   const [specialty, setSpecialty] = useState("");
   const [mbti, setMbti] = useState("");
   const [email, setEmail] = useState("");
-  const [blogUrl, setBlogUrl] = useState("");
-  const [gitHubUrl, setGitHubUrl] = useState("");
+  const [blogurl, setBlogurl] = useState("");
+  const [githuburl, setGithuburl] = useState("");
 
   /*   useEffect(() => {
     if (authorization === null) {
@@ -32,12 +35,14 @@ function MyPage() {
     }
   }, []); 
 */
-  const { data } = useQuery("user", getMyInfo);
+  /*   const { data } = useQuery("user", getMyInfo);
   console.log("useQuerydata", data);
+ */
 
   const mutationGetInfo = useMutation(getMyInfo, {
     onSuccess: (response) => {
-      console.log(response);
+      console.log("mutation", response);
+      setItem(response);
     },
     onError: (error) => {
       alert(error);
@@ -45,19 +50,20 @@ function MyPage() {
   });
 
   useEffect(() => {
-    mutationGetInfo.mutate(access_token, refresh_token);
+    mutationGetInfo.mutate({ authorization });
   }, []);
 
   const newInfo = {
     specialty,
     mbti: mbti.toUpperCase(),
     email,
-    blogUrl,
-    gitHubUrl,
+    blogurl,
+    githuburl,
   };
   const mutationEdit = useMutation(updateMyInfo, {
     onSuccess: (response) => {
       console.log(response);
+      setItem(response);
       alert("회원정보가 수정되었습니다!");
       setIsEdit(false);
       navigate("/MyPage");
@@ -67,43 +73,49 @@ function MyPage() {
       setMbti("");
       setSpecialty("");
       setEmail("");
-      setBlogUrl("");
-      setGitHubUrl("");
+      setBlogurl("");
+      setGithuburl("");
     },
   });
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    mutationEdit.mutate(newInfo, access_token, refresh_token);
+    mutationEdit.mutate({ newInfo, authorization });
+  };
+  const handleEditButton = () => {
+    setIsEdit(true);
+    setMbti("");
+    setSpecialty("");
+    setEmail("");
+    setBlogurl("");
+    setGithuburl("");
   };
 
   return !isEdit ? (
     <MyPageContainer>
       <MyPageTitle>My Page</MyPageTitle>
       <MyPageContent>
-        {data?.map((item) => {
-          return (
-            <MyPageItem key={item.id}>
-              <MyPageItemTitle>이름</MyPageItemTitle>
-              <MyPageItemContent>{item.username}</MyPageItemContent>
+        <MyPageItem>
+          <img src={item.imageUrl} width="80px" />
+          <MyPageItemTitle>이름</MyPageItemTitle>
+          <MyPageItemContent>{item.username}</MyPageItemContent>
 
-              <MyPageItemTitle>주특기</MyPageItemTitle>
-              <MyPageItemContent>{item.specialty}</MyPageItemContent>
+          <MyPageItemTitle>주특기</MyPageItemTitle>
+          <MyPageItemContent>{item.specialty}</MyPageItemContent>
 
-              <MyPageItemTitle>MBTI</MyPageItemTitle>
-              <MyPageItemContent>{item.mbti}</MyPageItemContent>
+          <MyPageItemTitle>MBTI</MyPageItemTitle>
+          <MyPageItemContent>{item.mbti}</MyPageItemContent>
 
-              <MyPageItemTitle>깃허브 주소</MyPageItemTitle>
-              <MyPageItemContent>{item.githubUrl}</MyPageItemContent>
+          <MyPageItemTitle>깃허브 주소</MyPageItemTitle>
+          <MyPageItemContent>{item.githubUrl}</MyPageItemContent>
 
-              <MyPageItemTitle>블로그 주소</MyPageItemTitle>
-              <MyPageItemContent>{item.blogUrl}</MyPageItemContent>
+          <MyPageItemTitle>블로그 주소</MyPageItemTitle>
+          <MyPageItemContent>{item.blogUrl}</MyPageItemContent>
 
-              <MyPageItemTitle>이메일</MyPageItemTitle>
-              <MyPageItemContent>{item.email}</MyPageItemContent>
-            </MyPageItem>
-          );
-        })}
-        <MyPageButton onClick={() => setIsEdit(true)}>수정하기</MyPageButton>
+          <MyPageItemTitle>이메일</MyPageItemTitle>
+          <MyPageItemContent>{item.email}</MyPageItemContent>
+        </MyPageItem>
+
+        <MyPageButton onClick={handleEditButton}>수정하기</MyPageButton>
       </MyPageContent>
     </MyPageContainer>
   ) : (
@@ -141,23 +153,23 @@ function MyPage() {
             }}
             placeholder="E-mail을 입력해주세요!"
           />
-          <Label htmlFor="gitHubUrl">gitHub 주소</Label>
+          <Label htmlFor="githuburl">gitHub 주소</Label>
           <Input
             type="text"
-            value={gitHubUrl}
+            value={githuburl}
             id="gitHubUrl"
             onChange={(e) => {
-              setGitHubUrl(e.target.value);
+              setGithuburl(e.target.value);
             }}
             placeholder="gitHub주소를 입력해주세요!"
           />
-          <Label htmlFor="blogUrl">블로그 주소</Label>
+          <Label htmlFor="blogurl">블로그 주소</Label>
           <Input
             type="text"
-            value={blogUrl}
-            id="blogUrl"
+            value={blogurl}
+            id="blogurl"
             onChange={(e) => {
-              setBlogUrl(e.target.value);
+              setBlogurl(e.target.value);
             }}
             placeholder="블로그주소를 입력해주세요!"
           />
