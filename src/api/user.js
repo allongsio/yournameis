@@ -4,7 +4,7 @@ import axios from "axios";
 const login = async (user) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/auth/login`,
+      `${process.env.REACT_APP_SERVER_URL}/api/auth/login`,
       user
     );
     console.log(response);
@@ -18,7 +18,7 @@ const login = async (user) => {
 //사용자 전체 조회
 const getUsers = async () => {
   const response = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}api/members`
+    `${process.env.REACT_APP_SERVER_URL}/api/members`
   );
 
   return response.data;
@@ -28,7 +28,7 @@ const getUsers = async () => {
 const getMyInfo = async ({ authorization }) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}api/mypage`,
+      `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
       {
         headers: {
           Access_Token: `${authorization.access_token}`,
@@ -46,7 +46,7 @@ const getMyInfo = async ({ authorization }) => {
 const updateMyInfo = async ({ newInfo, authorization }) => {
   try {
     const response = await axios.put(
-      `${process.env.REACT_APP_SERVER_URL}api/mypage`,
+      `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
       newInfo,
       {
         headers: {

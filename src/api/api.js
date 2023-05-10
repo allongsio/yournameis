@@ -5,7 +5,7 @@ const signup = async (userInfo) => {
   try {
     console.log(process.env);
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/auth/signup`,
+      `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
       userInfo
     );
     console.log(response);
@@ -17,11 +17,16 @@ const signup = async (userInfo) => {
 };
 
 // 사용자 상세 조회api, method : get, url : /api/user/{user_id}
-const detailRequest = async (user_id) => {
+const detailRequest = async ({ user_id, authorization }) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}`
-      // { headers: { Access_Token: `Bearer ${authorization}` } }
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}`,
+      {
+        headers: {
+          Access_Token: `${authorization.access_token}`,
+          Refresh_Token: `${authorization.refresh_token}`,
+        },
+      }
     );
     console.log(response.data);
     return response.data;
@@ -34,7 +39,7 @@ const detailRequest = async (user_id) => {
 const replySubmit = async ({ user_id, content, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}/comments`,
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments`,
       { content },
       {
         headers: {
@@ -54,7 +59,7 @@ const replyDelete = async ({ user_id, replyId, authorization }) => {
   console.log(user_id, replyId, authorization);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}/comments/${replyId}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments/${replyId}`,
       {
         headers: {
           Access_Token: `${authorization.access_token}`,
@@ -72,7 +77,7 @@ const replyDelete = async ({ user_id, replyId, authorization }) => {
 const replyLike = async (user_id, replyId) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/user/${user_id}/comment/${replyId}/like`
+      `${process.env.REACT_APP_SERVER_URL}/api/user/${user_id}/comment/${replyId}/like`
     );
     return response.data;
   } catch (error) {
@@ -84,7 +89,7 @@ const replyLike = async (user_id, replyId) => {
 const postingRequest = async () => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}api/board`
+      `${process.env.REACT_APP_SERVER_URL}/api/board`
     );
     return response.data.data;
   } catch (error) {
@@ -96,7 +101,7 @@ const postingRequest = async () => {
 const postingPost = async ({ posting, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/board`,
+      `${process.env.REACT_APP_SERVER_URL}/api/board`,
       posting,
       {
         headers: {
@@ -116,7 +121,7 @@ const postingDelete = async ({ post_id, authorization }) => {
   console.log(post_id);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}api/board/${post_id}`,
+      `${process.env.REACT_APP_SERVER_URL}/api/board/${post_id}`,
       {
         headers: {
           Access_Token: `${authorization.access_token}`,

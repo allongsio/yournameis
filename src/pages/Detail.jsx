@@ -64,7 +64,7 @@ function Detail() {
   const user_id = params.id;
 
   const { isLoading, isError, data } = useQuery("detail", () =>
-    detailRequest(user_id)
+    detailRequest({ user_id, authorization })
   );
   if (isLoading) {
     return <p>로딩중입니다!</p>;

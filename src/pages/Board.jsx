@@ -67,25 +67,27 @@ function Board() {
   return (
     <BoardWrapper>
       <div>
-        제목 : <input id='title' onChange={(e) => onChangeHandler(e)} />
-        내용 : <input id='content' onChange={(e) => onChangeHandler(e)} />
+        <h3>제목 : </h3>
+        <input id="title" onChange={(e) => onChangeHandler(e)} />
+        <h3>내용 : </h3>
+        <input id="content" onChange={(e) => onChangeHandler(e)} />
         <button onClick={onSubmitButtonClickHandler}>입력</button>
       </div>
-      <div id='board-card-area'>
+      <div id="board-card-area" style={{ display: "flex", flexWrap: "wrap" }}>
         {data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span
                 id={item.id}
                 onClick={(e) => deleteButtonHandler(e)}
-                className='delete-button'
+                className="delete-button"
               >
                 x
               </span>
               <p>{item.title}</p>
               <p>{item.content}</p>
-              <div className='author-wrapper'>
-                <p className='posting-author'>{item.author}</p>
+              <div className="author-wrapper">
+                <p className="posting-author">{item.author}</p>
               </div>
             </BoardCard>
           );
@@ -96,6 +98,81 @@ function Board() {
 }
 
 const BoardWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #board-card-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
+  > div {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    > input {
+      border: 2px solid #999;
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    > button {
+      background-color: #5a8fad;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
+`;
+const BoardCard = styled.div`
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  position: relative;
+
+  .delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #757575;
+    cursor: pointer;
+  }
+
+  p {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .author-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .posting-author {
+    font-size: 14px;
+    color: #757575;
+  }
+`;
+
+/* const BoardWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -163,6 +240,6 @@ const BoardCard = styled.div`
     color: #006cb7;
     margin-right: 10px;
   }
-`;
+`; */
 
 export default Board;
