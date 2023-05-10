@@ -74,10 +74,17 @@ const replyDelete = async ({ user_id, replyId, authorization }) => {
 };
 
 // 댓글 좋아요api, method : post, url : /api/user/{user_id}/comment/{id}/like
-const replyLike = async (user_id, replyId) => {
+const replyLike = async ({ user_id, replyId, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/user/${user_id}/comment/${replyId}/like`
+      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments/${replyId}/like`,
+      {},
+      {
+        headers: {
+          Access_Token: `${authorization.access_token}`,
+          Refresh_Token: `${authorization.refresh_token}`,
+        },
+      }
     );
     return response.data;
   } catch (error) {
@@ -118,7 +125,6 @@ const postingPost = async ({ posting, authorization }) => {
 
 // 게시글 삭제api, method : delete, url : /api/auth/userdelete
 const postingDelete = async ({ post_id, authorization }) => {
-  console.log(post_id);
   try {
     const response = await axios.delete(
       `${process.env.REACT_APP_SERVER_URL}/api/board/${post_id}`,

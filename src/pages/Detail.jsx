@@ -5,16 +5,16 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { detailRequest, replySubmit, replyDelete, replyLike } from "../api/api";
 import { LikeIcon } from "../ele/LikeIcon";
+import { LikeIconFilled } from "../ele/LikeIconFilled";
 
 function Detail() {
   // 현재 로컬 스토리지의 액세스 토큰 추출
   const access_token = localStorage.getItem("access_token");
   const refresh_token = localStorage.getItem("refresh_token");
   const authorization = { access_token, refresh_token };
+  access_token || navigate("/");
 
   const navigate = useNavigate();
-
-  access_token || navigate("/");
 
   // input값 상태관리
   const [input, setInput] = useState("");
@@ -32,12 +32,13 @@ function Detail() {
       queryClient.invalidateQueries("detail", detailRequest);
     },
     onError: () => {
-      alert("권한이 없습니다!");
+      alert("작성자만 삭제할 수 있습니다!");
     },
   });
   const replyLikeApi = useMutation(replyLike, {
     onSuccess: () => {
       queryClient.invalidateQueries("detail", detailRequest);
+      queryClient.refetchQueries();
     },
   });
 
@@ -55,8 +56,8 @@ function Detail() {
 
   // 댓글 좋아요 버튼
   const likeButtonHandler = (e) => {
-    const replyId = e.target.dataset.id;
-    replyLikeApi.mutate(user_id, replyId);
+    const replyId = e.currentTarget.id;
+    replyLikeApi.mutate({ user_id, replyId, authorization });
   };
 
   // 현재 페이지 URL에서 사용자 아이디 추출
@@ -82,50 +83,65 @@ function Detail() {
     ["Blog URL", data.user.blogUrl],
     ["E-mail", data.user.email],
   ];
+  console.log(data.comments);
 
   return (
-    <DetailPageWrapper>
-      <DetailComponent>
-        {dataForm.map((item, index) => (
-          <p key={index}>
-            {item[0]} : {item[1]}
-          </p>
-        ))}
-        <ReplyArea>
-          <div>
-            <input onChange={(e) => setInput(e.target.value)} value={input} />
-            <button id="submit-button" onClick={onSubmitButtonHandler}>
-              작성
-            </button>
-          </div>
-          {data.comments.map((item, index) => (
-            <IndividualReply key={index + 1}>
-              <div>
-                <span className="commentName">{item.username}</span>
-                &nbsp;&nbsp;&nbsp;
-                <span className="commentContent">{item.content}</span>
-              </div>
-              <div id="button-area">
-                <button
-                  data-id={item.id}
-                  onClick={(e) => deleteButtonHandler(e)}
-                  className="delete-button"
-                ></button>
-                <LikeIcon
-                  data-id={item.id}
-                  onClick={(e) => likeButtonHandler(e)}
-                />
-                <span>{item.likeCount}</span>
-              </div>
-            </IndividualReply>
+    <div>
+      <DetailPageWrapper>
+        <img src={data.user.imageUrl} />
+        <DetailComponent>
+          <img src={data.user.imgUrl} />
+          {dataForm.map((item, index) => (
+            <p key={index}>
+              {item[0]} : {item[1]}
+            </p>
           ))}
-        </ReplyArea>
-      </DetailComponent>
-    </DetailPageWrapper>
+          <div id="reply-area">
+            <div>
+              <input onChange={(e) => setInput(e.target.value)} value={input} />
+              <button id="submit-button" onClick={onSubmitButtonHandler}>
+                작성
+              </button>
+            </div>
+            {data.comments.map((item) => (
+              <IndividualReply key={item.id}>
+                <div>
+                  <img src={data.user.imageUrl} className="reply-thumbnail" />
+                  <span className="commentName">{item.username}</span>
+                  &nbsp;&nbsp;&nbsp;
+                  <span className="commentContent">{item.content}</span>
+                </div>
+                <div id="button-area">
+                  <button
+                    data-id={item.id}
+                    onClick={(e) => deleteButtonHandler(e)}
+                  >
+                    삭제
+                  </button>
+                  {item.enabled ? (
+                    <LikeIconFilled
+                      id={item.id}
+                      onClick={(e) => likeButtonHandler(e)}
+                    />
+                  ) : (
+                    <LikeIcon
+                      id={item.id}
+                      onClick={(e) => likeButtonHandler(e)}
+                    />
+                  )}
+                  <span>{item.likeCount}</span>
+                </div>
+              </IndividualReply>
+            ))}
+          </div>
+        </DetailComponent>
+      </DetailPageWrapper>
+    </div>
   );
 }
 
 const DetailPageWrapper = styled.div`
+<<<<<<< HEAD
   display: flex;
   justify-content: center;
   align-items: center;
@@ -232,110 +248,5 @@ const ReplyArea = styled.div`
     background-color: #62a1ca;
   }
 `;
-/*
-const StyledInput = styled.input`
-  margin-right: 10px;
-`;
 
-const SubmitButton = styled.button`
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #3e8e41;
-  }
-`;
-
- const DetailPageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DetailComponent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 70px;
-  font-size: 20px;
-  font-weight: bold;
-
-  p {
-    margin: 5px;
-  }
-
-  #reply-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 50px;
-
-    .commentName {
-      color: #006cb7;
-    }
-
-    .commentContent {
-      font-size: 15px;
-      font-weight: 400;
-    }
-
-    div {
-      margin-top: 15px;
-    }
-
-    input {
-      height: 25px;
-      width: 400px;
-      border-radius: 5px;
-    }
-
-    #submit-button {
-      height: 40px;
-      width: 75px;
-      border-radius: 5px;
-      border: none;
-      margin-left: 15px;
-      font-size: 20px;
-      font-weight: bolder;
-      color: white;
-      background-color: #ff7f50;
-    }
-  }
-`;
-
-const IndividualReply = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  #button-area {
-    display: flex;
-    align-items: center;
-
-    svg {
-      margin-left: 5px;
-    }
-  }
-  button {
-    margin-left: 15px;
-    background-color: #dc143c;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-weight: 900;
-  }
-`;
-
-const DetailImageWrapper = styled.div`
-  border-radius: 20px;
-  display: inline-block;
-  overflow: hidden;
-`;
- */
 export default Detail;

@@ -41,7 +41,7 @@ function MyPage() {
 
   const mutationGetInfo = useMutation(getMyInfo, {
     onSuccess: (response) => {
-      console.log("mutation", response);
+      // console.log("mutation", response);
       setItem(response);
     },
     onError: (error) => {
@@ -62,7 +62,7 @@ function MyPage() {
   };
   const mutationEdit = useMutation(updateMyInfo, {
     onSuccess: (response) => {
-      console.log(response);
+      // console.log(response);
       setItem(response);
       alert("회원정보가 수정되었습니다!");
       setIsEdit(false);
@@ -99,7 +99,6 @@ function MyPage() {
           <InfoContainer>
             <MyPageItemTitle>이름</MyPageItemTitle>
             <MyPageItemContent>{item.username}</MyPageItemContent>
-
             <MyPageItemTitle>주특기</MyPageItemTitle>
             <MyPageItemContent>{item.specialty}</MyPageItemContent>
 

@@ -42,6 +42,10 @@ function Board() {
   const postingDeleteApi = useMutation(postingDelete, {
     onSuccess: () => {
       queryClient.invalidateQueries("postingrequest", postingRequest);
+      queryClient.refetchQueries();
+    },
+    onError: () => {
+      alert("작성자 본인이 삭제할 수 있습니다!");
     },
   });
 
@@ -53,7 +57,7 @@ function Board() {
 
   // 게시물 삭제 핸들러 함수
   const deleteButtonHandler = (e) => {
-    postingDeleteApi.mutate({ post_id: data.data.id, authorization });
+    postingDeleteApi.mutate({ post_id: e.target.id, authorization });
   };
 
   const { isLoading, isError, data } = useQuery("posting", postingRequest);
@@ -68,26 +72,26 @@ function Board() {
     <BoardWrapper>
       <div>
         <h3>제목 : </h3>
-        <input id="title" onChange={(e) => onChangeHandler(e)} />
+        <input id='title' onChange={(e) => onChangeHandler(e)} />
         <h3>내용 : </h3>
-        <input id="content" onChange={(e) => onChangeHandler(e)} />
+        <input id='content' onChange={(e) => onChangeHandler(e)} />
         <button onClick={onSubmitButtonClickHandler}>입력</button>
       </div>
-      <div id="board-card-area" style={{ display: "flex", flexWrap: "wrap" }}>
+      <div id='board-card-area' style={{ display: "flex", flexWrap: "wrap" }}>
         {data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span
                 id={item.id}
                 onClick={(e) => deleteButtonHandler(e)}
-                className="delete-button"
+                className='delete-button'
               >
                 x
               </span>
               <p>{item.title}</p>
               <p>{item.content}</p>
-              <div className="author-wrapper">
-                <p className="posting-author">{item.author}</p>
+              <div className='author-wrapper'>
+                <p className='posting-author'>{item.author}</p>
               </div>
             </BoardCard>
           );

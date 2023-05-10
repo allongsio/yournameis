@@ -3,12 +3,20 @@ import { useQuery } from "react-query";
 import { getUsers } from "../api/user";
 import styled from "styled-components";
 import User from "../components/User";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
   const [name, setName] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const { isLoading, isError, data } = useQuery("users", getUsers);
+  const navigate = useNavigate();
+
+  // 현재 로컬 스토리지의 액세스 토큰 추출
+  const access_token = localStorage.getItem("access_token");
+  const refresh_token = localStorage.getItem("refresh_token");
+  const authorization = { access_token, refresh_token };
+  access_token || navigate("/");
 
   /* const searchList = () =>{
 const filtered = sampleData.filter((itemList) => {
@@ -61,15 +69,15 @@ return (
           전체 user 목록
         </All>
         <FormContainer>
-          <label htmlFor="name">이름 : </label>
+          <label htmlFor='name'>이름 : </label>
           <input
-            type="text"
+            type='text'
             value={name}
-            id="name"
+            id='name'
             onChange={(e) => {
               setName(e.target.value);
             }}
-            placeholder="유저를 검색해보세요!"
+            placeholder='유저를 검색해보세요!'
           />
           <button onClick={SearchButtonClick} disabled={name.length === 0}>
             검색
