@@ -34,6 +34,7 @@ function Board() {
 
   // 게시물 제출 핸들러 함수
   const onSubmitButtonClickHandler = () => {
+    console.log(input);
     postingSubmitApi.mutate(input);
     setInput({ title: "", content: "" });
   };
@@ -43,46 +44,14 @@ function Board() {
     postingDeleteApi.mutate(e.target.id);
   };
 
-  // const { isLoading, isError, data } = useQuery("posting", postingRequest);
-  // if (isLoading) {
-  //   return <p>로딩중입니다!</p>;
-  // }
-  // if (isError) {
-  //   return <p>오류가 발생하였습니다!</p>;
-  // }
-
-  const data = [
-    {
-      id: 1,
-      title: "스터디 공고",
-      content: "스터디 구함",
-      author: "항해99",
-    },
-    {
-      id: 2,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-    {
-      id: 3,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-    {
-      id: 4,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-    {
-      id: 5,
-      title: "프로젝트 멤버 구함",
-      content: "프로젝트 같이 하실분 구함",
-      author: "14기",
-    },
-  ];
+  const { isLoading, isError, data } = useQuery("posting", postingRequest);
+  if (isLoading) {
+    return <p>로딩중입니다!</p>;
+  }
+  if (isError) {
+    return <p>오류가 발생하였습니다!</p>;
+  }
+  console.log(typeof data);
 
   return (
     <BoardWrapper>
@@ -92,7 +61,7 @@ function Board() {
         <button onClick={onSubmitButtonClickHandler}>입력</button>
       </div>
       <div id='board-card-area'>
-        {data.map((item, index) => {
+        {data.data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span

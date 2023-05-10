@@ -19,8 +19,8 @@ const signup = async (userInfo) => {
 const detailRequest = async (user_id, authorization) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/user/{${user_id}}`,
-      { headers: { Access_Token: `Bearer {${authorization}}` } }
+      `${process.env.REACT_APP_SERVER_URL}/api/user/${user_id}`,
+      { headers: { Access_Token: `Bearer ${authorization}` } }
     );
     return response.data;
   } catch (error) {
@@ -76,6 +76,7 @@ const postingRequest = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/api/board`
     );
+    console.log(response);
     return response.data;
   } catch (error) {
     return Promise.reject(error.response);

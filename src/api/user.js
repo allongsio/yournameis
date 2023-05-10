@@ -18,7 +18,7 @@ const getUsers = async () => {
   const response = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/api/members`
   );
-
+  console.log(response);
   return response.data;
 };
 //마이페이지 조회

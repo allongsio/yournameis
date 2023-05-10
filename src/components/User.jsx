@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 function User({ user }) {
   const navigate = useNavigate();
-  const user_id = user.userId;
+  const user_id = user.id;
 
   const handleDetailPageLinkClick = () => {
     navigate(`/Detail/${user_id}`);
