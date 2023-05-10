@@ -130,6 +130,10 @@ function SignUp() {
             return <SignUpInput key={item.title} item={item}></SignUpInput>;
           })}
           <p>*은 필수입력값입니다.</p>
+          <p>ID는 4자 이상, 10자 이하이며 알파벳 소문자, 숫자를 포함합니다.</p>
+          <p>
+            PW는 8자 이상, 15자 이하이며 알파벳 대소문자, 숫자를 포함합니다.
+          </p>
         </div>
       </div>
       <button onClick={signUpButtonHandler}>가입</button>
@@ -250,7 +254,8 @@ const SignUpWrapper = styled.div`
     color: #ff4500;
     display: flex;
     justify-content: right;
-    padding-right: 20px;
+    font-size: 12px;
+    margin-right: 20px;
   }
 
   button {

@@ -41,7 +41,7 @@ function MyPage() {
 
   const mutationGetInfo = useMutation(getMyInfo, {
     onSuccess: (response) => {
-      console.log("mutation", response);
+      // console.log("mutation", response);
       setItem(response);
     },
     onError: (error) => {
@@ -62,7 +62,7 @@ function MyPage() {
   };
   const mutationEdit = useMutation(updateMyInfo, {
     onSuccess: (response) => {
-      console.log(response);
+      // console.log(response);
       setItem(response);
       alert("회원정보가 수정되었습니다!");
       setIsEdit(false);
@@ -95,7 +95,7 @@ function MyPage() {
       <MyPageTitle>My Page</MyPageTitle>
       <MyPageContent>
         <MyPageItem>
-          <img src={item.imageUrl} width="80px" />
+          <img src={item.imageUrl} width='80px' />
           <MyPageItemTitle>이름</MyPageItemTitle>
           <MyPageItemContent>{item.username}</MyPageItemContent>
 
@@ -123,59 +123,59 @@ function MyPage() {
       <MyPageTitle>My Page</MyPageTitle>
       <MyPageContent>
         <form>
-          <Label htmlFor="mbti">MBTI</Label>
+          <Label htmlFor='mbti'>MBTI</Label>
           <Input
-            type="text"
+            type='text'
             value={mbti}
-            id="mbti"
+            id='mbti'
             onChange={(e) => {
               setMbti(e.target.value);
             }}
-            placeholder="MBTI를 입력해주세요!"
+            placeholder='MBTI를 입력해주세요!'
           />
-          <Label htmlFor="specialty">주특기</Label>
+          <Label htmlFor='specialty'>주특기</Label>
           <Input
-            type="text"
+            type='text'
             value={specialty}
-            id="specialty"
+            id='specialty'
             onChange={(e) => {
               setSpecialty(e.target.value);
             }}
-            placeholder="주특기를 입력해주세요!"
+            placeholder='주특기를 입력해주세요!'
           />
-          <Label htmlFor="email">이메일</Label>
+          <Label htmlFor='email'>이메일</Label>
           <Input
-            type="text"
+            type='text'
             value={email}
-            id="email"
+            id='email'
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            placeholder="E-mail을 입력해주세요!"
+            placeholder='E-mail을 입력해주세요!'
           />
-          <Label htmlFor="githuburl">gitHub 주소</Label>
+          <Label htmlFor='githuburl'>gitHub 주소</Label>
           <Input
-            type="text"
+            type='text'
             value={githuburl}
-            id="gitHubUrl"
+            id='gitHubUrl'
             onChange={(e) => {
               setGithuburl(e.target.value);
             }}
-            placeholder="gitHub주소를 입력해주세요!"
+            placeholder='gitHub주소를 입력해주세요!'
           />
-          <Label htmlFor="blogurl">블로그 주소</Label>
+          <Label htmlFor='blogurl'>블로그 주소</Label>
           <Input
-            type="text"
+            type='text'
             value={blogurl}
-            id="blogurl"
+            id='blogurl'
             onChange={(e) => {
               setBlogurl(e.target.value);
             }}
-            placeholder="블로그주소를 입력해주세요!"
+            placeholder='블로그주소를 입력해주세요!'
           />
           <ButtonContainer>
             <MyPageButton onClick={() => setIsEdit(false)}>취소</MyPageButton>
-            <MyPageButton type="submit" onClick={handleFormSubmit}>
+            <MyPageButton type='submit' onClick={handleFormSubmit}>
               완료
             </MyPageButton>
           </ButtonContainer>
