@@ -5,9 +5,10 @@ const signup = async (userInfo) => {
   try {
     console.log(process.env);
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
+      `${process.env.REACT_APP_SERVER_URL}api/auth/signup`,
       userInfo
     );
+    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -33,7 +34,7 @@ const detailRequest = async (user_id) => {
 const replySubmit = async ({ user_id, content, authorization }) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments`,
+      `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}/comments`,
       { content },
       {
         headers: {
@@ -53,7 +54,7 @@ const replyDelete = async ({ user_id, replyId, authorization }) => {
   console.log(user_id, replyId, authorization);
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}/api/members/${user_id}/comments/${replyId}`,
+      `${process.env.REACT_APP_SERVER_URL}api/members/${user_id}/comments/${replyId}`,
       {
         headers: {
           Access_Token: `${authorization.access_token}`,

@@ -7,6 +7,7 @@ const login = async (user) => {
       `${process.env.REACT_APP_SERVER_URL}api/auth/login`,
       user
     );
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error.response);

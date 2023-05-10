@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "react-query";
-import { login, confirm } from "../api/user";
+import { login } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -35,7 +35,7 @@ function Login() {
         "refresh_token",
         response.headers.get("refresh_token")
       );
-      //localStorage.setItem("id", response.id);
+
       alert("로그인에 성공하셨습니다!");
       navigate("/Main");
     },
