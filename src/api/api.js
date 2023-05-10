@@ -2,10 +2,11 @@ import axios from "axios";
 
 // 회원가입API, method : post, url : /api/auto/signup
 const signup = async (userInfo) => {
+  debugger;
   try {
     console.log(process.env);
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/auth/signup`,
+      `${process.env.REACT_APP_SERVER_URL}api/auth/signup`,
       userInfo
     );
     return response.data;
@@ -32,7 +33,7 @@ const detailRequest = async (user_id, authorization) => {
 const replySubmit = async (user_id, replyData) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/user/${user_id}/comment`,
+      `${process.env.REACT_APP_SERVER_URL}api/user/${user_id}/comment`,
       replyData
     );
     return response.data;
@@ -45,7 +46,7 @@ const replySubmit = async (user_id, replyData) => {
 const replyDelete = async (user_id, replyId) => {
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_SERVER_URL}/api/user/${user_id}`,
+      `${process.env.REACT_APP_SERVER_URL}api/user/${user_id}`,
       {
         data: {
           commentId: replyId,

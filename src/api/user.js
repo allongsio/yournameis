@@ -4,31 +4,34 @@ import axios from "axios";
 const login = async (user) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/api/auth/login`,
+      `${process.env.REACT_APP_SERVER_URL}api/auth/login`,
       user
     );
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error.response);
     return Promise.reject(error.response.data.message);
   }
 };
+
 //사용자 전체 조회
 const getUsers = async () => {
   const response = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/api/members`
+    `${process.env.REACT_APP_SERVER_URL}api/members`
   );
   console.log(response);
   return response.data;
 };
+
 //마이페이지 조회
-const getMyInfo = async (authorization) => {
+const getMyInfo = async (access_token, refresh_token) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
+      `${process.env.REACT_APP_SERVER_URL}api/mypage`,
       {
         headers: {
-          authorization: `Bearer ${authorization}`,
+          Access_Token: `${access_token}`,
+          Refresh_Token: `${refresh_token}`,
         },
       }
     );
@@ -42,7 +45,7 @@ const getMyInfo = async (authorization) => {
 const updateMyInfo = async (authorization, newInfo) => {
   try {
     const response = await axios.patch(
-      `${process.env.REACT_APP_SERVER_URL}/api/mypage`,
+      `${process.env.REACT_APP_SERVER_URL}api/mypage`,
       newInfo,
       {
         headers: {
