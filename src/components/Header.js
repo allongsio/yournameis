@@ -8,8 +8,9 @@ function Header() {
   const location = useLocation();
 
   // 로그아웃 버튼
-  const logOutButtonHandler = () => {
+  const logOutButtonHandler = (e) => {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     navigate("/");
   };
   return (
@@ -37,29 +38,6 @@ function Header() {
           </div>
         </div>
       </HeaderWrapper>
-      /*  <div>
-        <HeaderWrapper>
-          <div onClick={() => navigate("/Main")} id="header-title">
-            <HomeIcon />
-            &nbsp; 너의 이름은
-          </div>
-
-          <div id="nav-bar">
-            <div onClick={() => navigate("/Main")} className="odd">
-              HOME
-            </div>
-            <div onClick={() => navigate("/Board")} className="even">
-              BOARD
-            </div>
-            <div onClick={() => navigate("/MyPage")} className="odd">
-              MY PAGE
-            </div>
-            <div onClick={logOutButtonHandler} className="even">
-              LOGOUT
-            </div>
-          </div>
-        </HeaderWrapper>
-      </div> */
     )
   );
 }
@@ -128,10 +106,12 @@ const HeaderWrapper = styled.div`
     color: white;
     font-size: 30px;
     font-weight: bolder;
+    cursor: pointer;
   }
   #nav-bar {
     display: flex;
     height: 25px;
+    cursor: pointer;
 
     .odd {
       background-color: #ffdb58;
