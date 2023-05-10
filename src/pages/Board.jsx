@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { postingRequest, postingPost, postingDelete } from "../api/api";
 import { useQueryClient, useMutation, useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 function Board() {
   // 입력값 상태관리
@@ -11,10 +12,16 @@ function Board() {
   // useQueryClient hoook 호출
   const queryClient = useQueryClient();
 
+  const navigate = useNavigate();
+
   // 현재 로컬 스토리지의 액세스 토큰 추출
   const access_token = localStorage.getItem("access_token");
   const refresh_token = localStorage.getItem("refresh_token");
   const authorization = { access_token, refresh_token };
+
+  if (!access_token) {
+    navigate("/");
+  }
 
   // 입력값 상태관리 전달
   const onChangeHandler = (e) => {

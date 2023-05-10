@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { detailRequest, replySubmit, replyDelete, replyLike } from "../api/api";
@@ -11,6 +11,10 @@ function Detail() {
   const access_token = localStorage.getItem("access_token");
   const refresh_token = localStorage.getItem("refresh_token");
   const authorization = { access_token, refresh_token };
+
+  const navigate = useNavigate();
+
+  access_token || navigate("/");
 
   // input값 상태관리
   const [input, setInput] = useState("");
