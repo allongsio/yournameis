@@ -23,33 +23,40 @@ const getUsers = async () => {
   return response.data;
 };
 
+const headers = {
+  Access_Token: `${access_token}`,
+  Refresh_Token: `${refresh_token}`,
+};
+
 //마이페이지 조회
 const getMyInfo = async (access_token, refresh_token) => {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}api/mypage`,
       {
-        headers: {
+        headers,
+        /*  headers: {
           Access_Token: `${access_token}`,
           Refresh_Token: `${refresh_token}`,
-        },
+        }, */
       }
     );
-    return response;
+    return response.data;
   } catch (error) {
     return Promise.reject(error.response);
   }
 };
 
 // 마이페이지 수정
-const updateMyInfo = async (authorization, newInfo) => {
+const updateMyInfo = async (access_token, refresh_token, newInfo) => {
   try {
     const response = await axios.patch(
       `${process.env.REACT_APP_SERVER_URL}api/mypage`,
       newInfo,
       {
         headers: {
-          authorization: `Bearer ${authorization}`,
+          Access_Token: `${access_token}`,
+          Refresh_Token: `${refresh_token}`,
         },
       }
     );

@@ -10,7 +10,7 @@ function Header() {
   // 로그아웃 버튼
   const logOutButtonHandler = () => {
     localStorage.removeItem("access_token");
-    navigate("/Login");
+    navigate("/");
   };
   return (
     // 로그인 페이지, 회원가입 페이지에서는 랜더링 되지 않도록
@@ -18,21 +18,21 @@ function Header() {
     location.pathname !== "/SignUp" && (
       <div>
         <HeaderWrapper>
-          <div onClick={() => navigate("/")} id='header-title'>
+          <div onClick={() => navigate("/Main")} id="header-title">
             <HomeIcon />
             &nbsp; 너의 이름은
           </div>
-          <div id='nav-bar'>
-            <div onClick={() => navigate("/")} className='odd'>
+          <div id="nav-bar">
+            <div onClick={() => navigate("/Main")} className="odd">
               HOME
             </div>
-            <div onClick={() => navigate("/Board")} className='even'>
+            <div onClick={() => navigate("/Board")} className="even">
               BOARD
             </div>
-            <div onClick={() => navigate("/MyPage")} className='odd'>
+            <div onClick={() => navigate("/MyPage")} className="odd">
               MY PAGE
             </div>
-            <div onClick={logOutButtonHandler} className='even'>
+            <div onClick={logOutButtonHandler} className="even">
               LOGOUT
             </div>
           </div>

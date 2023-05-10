@@ -5,7 +5,8 @@ import { useMutation, useQuery } from "react-query";
 import { getMyInfo, updateMyInfo } from "../api/user";
 
 function MyPage() {
-  const authorization = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem("access_token");
+  const refresh_token = localStorage.getItem("refresh_token");
   const [isEdit, setIsEdit] = useState(false);
   const navigate = useNavigate();
   /*   const data = [
@@ -24,14 +25,29 @@ function MyPage() {
   const [blogUrl, setBlogUrl] = useState("");
   const [gitHubUrl, setGitHubUrl] = useState("");
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (authorization === null) {
       alert("토큰이 만료되었습니다!");
       navigate("/");
     }
+  }, []); 
+*/
+  const { data } = useQuery("user", getMyInfo);
+  console.log("useQuerydata", data);
+
+  const mutationGetInfo = useMutation(getMyInfo, {
+    onSuccess: (response) => {
+      console.log(response);
+    },
+    onError: (error) => {
+      alert(error);
+    },
+  });
+
+  useEffect(() => {
+    mutationGetInfo.mutate(access_token, refresh_token);
   }, []);
 
-  const { data } = useQuery("user", () => getMyInfo({ authorization }));
   const newInfo = {
     specialty,
     mbti: mbti.toUpperCase(),
@@ -39,9 +55,9 @@ function MyPage() {
     blogUrl,
     gitHubUrl,
   };
-
   const mutationEdit = useMutation(updateMyInfo, {
     onSuccess: (response) => {
+      console.log(response);
       alert("회원정보가 수정되었습니다!");
       setIsEdit(false);
       navigate("/MyPage");
@@ -57,7 +73,7 @@ function MyPage() {
   });
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    mutationEdit.mutate(newInfo, authorization);
+    mutationEdit.mutate(newInfo, access_token, refresh_token);
   };
 
   return !isEdit ? (

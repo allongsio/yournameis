@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 function User({ user }) {
   const navigate = useNavigate();
-  const user_id = user.userId;
-
+  //const user_id = user.userId;
+  const user_id = user.id;
   const handleDetailPageLinkClick = () => {
     navigate(`/Detail/${user_id}`);
   };
@@ -13,7 +13,7 @@ function User({ user }) {
   return (
     <UserCard onClick={handleDetailPageLinkClick}>
       <UserInfo>
-        {/*         <img src={user.avatar} width='100px' /> */}
+        <img src={user.imageUrl} width="100px" />
         <UserName>{user.username}</UserName>
         <UserSpecialty>주특기 : {user.specialty}</UserSpecialty>
         <UserMbti>MBTI : {user.mbti}</UserMbti>
