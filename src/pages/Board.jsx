@@ -11,6 +11,11 @@ function Board() {
   // useQueryClient hoook 호출
   const queryClient = useQueryClient();
 
+  // 현재 로컬 스토리지의 액세스 토큰 추출
+  const access_token = localStorage.getItem("access_token");
+  const refresh_token = localStorage.getItem("refresh_token");
+  const authorization = { access_token, refresh_token };
+
   // 입력값 상태관리 전달
   const onChangeHandler = (e) => {
     e.target.id === "title"
@@ -34,14 +39,14 @@ function Board() {
 
   // 게시물 제출 핸들러 함수
   const onSubmitButtonClickHandler = () => {
-    console.log(input);
-    postingSubmitApi.mutate(input);
-    setInput({ title: "", content: "" });
+    postingSubmitApi.mutate({ posting: input, authorization });
+    // setInput({ title: "", content: "" });
   };
 
   // 게시물 삭제 핸들러 함수
   const deleteButtonHandler = (e) => {
-    postingDeleteApi.mutate(e.target.id);
+    console.log(data);
+    postingDeleteApi.mutate({ post_id: data.data.id, authorization });
   };
 
   const { isLoading, isError, data } = useQuery("posting", postingRequest);
@@ -51,7 +56,6 @@ function Board() {
   if (isError) {
     return <p>오류가 발생하였습니다!</p>;
   }
-  console.log(typeof data);
 
   return (
     <BoardWrapper>

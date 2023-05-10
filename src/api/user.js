@@ -4,7 +4,7 @@ import axios from "axios";
 const login = async (user) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}api/auth/login`,
+      `${process.env.REACT_APP_SERVER_URL}/api/auth/login`,
       user
     );
     return response;
@@ -17,7 +17,7 @@ const login = async (user) => {
 //사용자 전체 조회
 const getUsers = async () => {
   const response = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}api/members`
+    `${process.env.REACT_APP_SERVER_URL}/api/members`
   );
   console.log(response);
   return response.data;

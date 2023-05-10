@@ -75,7 +75,7 @@ function Detail() {
 
   const { isLoading, isError, data } = useQuery(
     "detail",
-    detailRequest(user_id, authorization)
+    detailRequest(user_id)
   );
   if (isLoading) {
     return <p>로딩중입니다!</p>;
@@ -86,12 +86,12 @@ function Detail() {
 
   // 배열화하여 map함수 돌릴 수 있도록 처리
   const dataForm = [
-    ["이름", data.username],
-    ["주특기", data.specialty],
-    ["MBTI", data.mbti],
-    ["Github URL", data.githubUrl],
-    ["Blog URL", data.blogUrl],
-    ["E-mail", data.email],
+    ["이름", data.user.username],
+    ["주특기", data.user.specialty],
+    ["MBTI", data.user.mbti],
+    ["Github URL", data.user.githubUrl],
+    ["Blog URL", data.user.blogUrl],
+    ["E-mail", data.user.email],
   ];
 
   return (
