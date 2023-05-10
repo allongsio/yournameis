@@ -27,6 +27,9 @@ function Detail() {
     onSuccess: () => {
       queryClient.invalidateQueries("detail", detailRequest);
     },
+    onError: () => {
+      alert("권한이 없습니다!");
+    },
   });
   const replyLikeApi = useMutation(replyLike, {
     onSuccess: () => {

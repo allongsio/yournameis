@@ -1,11 +1,22 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../modules/modules";
-import Select from "./Select";
+import TriangleIcon from "../ele/TriangleIcon";
 
-function SignUpInput({ item }) {
+function SignUpInput({
+  item,
+  modalOpen,
+  setModalOpen,
+  whichModal,
+  setWhichModal,
+}) {
   const dispatch = useDispatch();
+
+  const userInfoIncludeConfirm = useSelector(
+    (state) => state.signupinput.signupInfo
+  );
 
   // 각 입력칸에 대해서 리덕스로 전역 상태 관리
   const onChangeHandler = (e) => {
@@ -14,31 +25,14 @@ function SignUpInput({ item }) {
     );
   };
 
-  // select dropdown option
-  const options1 = ["React", "Spring", "NodeJS"];
-  const options2 = [
-    "ISTP",
-    "ISTJ",
-    "ISFP",
-    "ISFJ",
-    "INTP",
-    "INTJ",
-    "INFP",
-    "INFJ",
-    "ESTP",
-    "ESTJ",
-    "ESFP",
-    "ESFJ",
-    "ENTP",
-    "ENTJ",
-    "ENFP",
-    "ENFJ",
-  ];
+  const modal1Handler = () => {
+    setModalOpen(!modalOpen);
+    setWhichModal(1);
+  };
 
-  // option 클릭 시 상태 변경
-  const optionClickHandler = (option, setSelect, setOpen) => {
-    setSelect(option);
-    setOpen(false);
+  const modal2Handler = () => {
+    setModalOpen(!modalOpen);
+    setWhichModal(2);
   };
 
   return (
@@ -47,35 +41,6 @@ function SignUpInput({ item }) {
         {item.title}
         {item.mandatory && "*"}
       </span>
-      {/* {item.title === "PW" || item.title === "PW확인" ? (
-        <input
-          data-title={item.type}
-          onChange={(e) => onChangeHandler(e)}
-          type='password'
-          className='signup-mypage-input'
-          placeholder='내용을 입력해주세요'
-        />
-      ) : item.title === "주특기" ? (
-        <Select
-          key={item.title}
-          options={options1}
-          optionClickHandler={optionClickHandler}
-        ></Select>
-      ) : item.title === "MBTI" ? (
-        <Select
-          key={item.title}
-          options={options2}
-          optionClickHandler={optionClickHandler}
-        ></Select>
-      ) : (
-        <input
-          data-title={item.type}
-          onChange={(e) => onChangeHandler(e)}
-          type='text'
-          className='signup-mypage-input'
-          placeholder='내용을 입력해주세요'
-        />
-      )} */}
       {item.title === "PW" || item.title === "PW확인" ? (
         <input
           id={item.title}
@@ -85,6 +50,26 @@ function SignUpInput({ item }) {
           className='signup-mypage-input'
           placeholder='내용을 입력해주세요'
         />
+      ) : item.title === "주특기" ? (
+        <div onClick={modal1Handler} className='modal-opener'>
+          {userInfoIncludeConfirm.specialty ? (
+            userInfoIncludeConfirm.specialty
+          ) : (
+            <>
+              주특기 선택 <TriangleIcon />
+            </>
+          )}
+        </div>
+      ) : item.title === "MBTI" ? (
+        <div onClick={modal2Handler} className='modal-opener'>
+          {userInfoIncludeConfirm.mbti ? (
+            userInfoIncludeConfirm.mbti
+          ) : (
+            <>
+              MBTI 선택 <TriangleIcon />
+            </>
+          )}
+        </div>
       ) : (
         <input
           id={item.title}
@@ -104,10 +89,22 @@ const SignUpInputWrapper = styled.div`
   justify-content: space-between;
   width: 300px;
   margin: 20px;
+
   span {
     font-size: 20px;
     font-weight: 400;
     margin-right: 20px;
+    color: ${(props) => props.mandatory === true && "#ff7f50"};
+  }
+
+  .modal-opener {
+    display: flex;
+    justify-content: center;
+    height: 20px;
+    width: 150px;
+    border: 1px solid black;
+    color: grey;
+    font-size: 15px;
   }
 
   #signup-mypage-input {
