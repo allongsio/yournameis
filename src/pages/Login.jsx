@@ -27,7 +27,14 @@ function Login() {
   const mutationLogin = useMutation(login, {
     onSuccess: (response) => {
       console.log(response);
-      localStorage.setItem("access_token", response.token);
+      localStorage.setItem(
+        "access_token",
+        response.headers.get("access_token")
+      );
+      localStorage.setItem(
+        "refresh_token",
+        response.headers.get("refresh_token")
+      );
       //localStorage.setItem("id", response.id);
       alert("로그인에 성공하셨습니다!");
       navigate("/Main");
