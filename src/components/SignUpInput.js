@@ -46,12 +46,12 @@ function SignUpInput({
           id={item.title}
           data-title={item.type}
           onChange={(e) => onChangeHandler(e)}
-          type='password'
-          className='signup-mypage-input'
-          placeholder='내용을 입력해주세요'
+          type="password"
+          className="signup-mypage-input"
+          placeholder="내용을 입력해주세요"
         />
       ) : item.title === "주특기" ? (
-        <div onClick={modal1Handler} className='modal-opener'>
+        <div onClick={modal1Handler} className="modal-opener">
           {userInfoIncludeConfirm.specialty ? (
             userInfoIncludeConfirm.specialty
           ) : (
@@ -61,7 +61,7 @@ function SignUpInput({
           )}
         </div>
       ) : item.title === "MBTI" ? (
-        <div onClick={modal2Handler} className='modal-opener'>
+        <div onClick={modal2Handler} className="modal-opener">
           {userInfoIncludeConfirm.mbti ? (
             userInfoIncludeConfirm.mbti
           ) : (
@@ -75,9 +75,9 @@ function SignUpInput({
           id={item.title}
           data-title={item.type}
           onChange={(e) => onChangeHandler(e)}
-          type='text'
-          className='signup-mypage-input'
-          placeholder='내용을 입력해주세요'
+          type="text"
+          className="signup-mypage-input"
+          placeholder="내용을 입력해주세요"
         />
       )}
     </SignUpInputWrapper>
@@ -91,10 +91,11 @@ const SignUpInputWrapper = styled.div`
   margin: 20px;
 
   span {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 400;
     margin-right: 20px;
-    color: ${(props) => props.mandatory === true && "#ff7f50"};
+    color: ${(props) => props.mandatory === true && "#0095f6"};
+    font-weight: bold;
   }
 
   .modal-opener {

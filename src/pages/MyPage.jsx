@@ -95,24 +95,26 @@ function MyPage() {
       <MyPageTitle>My Page</MyPageTitle>
       <MyPageContent>
         <MyPageItem>
-          <img src={item.imageUrl} width="80px" />
-          <MyPageItemTitle>이름</MyPageItemTitle>
-          <MyPageItemContent>{item.username}</MyPageItemContent>
+          <UserImage src={item.imageUrl} />
+          <InfoContainer>
+            <MyPageItemTitle>이름</MyPageItemTitle>
+            <MyPageItemContent>{item.username}</MyPageItemContent>
 
-          <MyPageItemTitle>주특기</MyPageItemTitle>
-          <MyPageItemContent>{item.specialty}</MyPageItemContent>
+            <MyPageItemTitle>주특기</MyPageItemTitle>
+            <MyPageItemContent>{item.specialty}</MyPageItemContent>
 
-          <MyPageItemTitle>MBTI</MyPageItemTitle>
-          <MyPageItemContent>{item.mbti}</MyPageItemContent>
+            <MyPageItemTitle>MBTI</MyPageItemTitle>
+            <MyPageItemContent>{item.mbti}</MyPageItemContent>
 
-          <MyPageItemTitle>깃허브 주소</MyPageItemTitle>
-          <MyPageItemContent>{item.githubUrl}</MyPageItemContent>
+            <MyPageItemTitle>깃허브 주소</MyPageItemTitle>
+            <MyPageItemContent>{item.githubUrl}</MyPageItemContent>
 
-          <MyPageItemTitle>블로그 주소</MyPageItemTitle>
-          <MyPageItemContent>{item.blogUrl}</MyPageItemContent>
+            <MyPageItemTitle>블로그 주소</MyPageItemTitle>
+            <MyPageItemContent>{item.blogUrl}</MyPageItemContent>
 
-          <MyPageItemTitle>이메일</MyPageItemTitle>
-          <MyPageItemContent>{item.email}</MyPageItemContent>
+            <MyPageItemTitle>이메일</MyPageItemTitle>
+            <MyPageItemContent>{item.email}</MyPageItemContent>
+          </InfoContainer>
         </MyPageItem>
 
         <MyPageButton onClick={handleEditButton}>수정하기</MyPageButton>
@@ -185,8 +187,12 @@ function MyPage() {
   );
 }
 
+const InfoContainer = styled.div``;
+const UserImage = styled.img`
+  width: 80px;
+`;
+
 const MyPageContainer = styled.div`
-  background-color: #f5f5f5;
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -209,7 +215,7 @@ const MyPageContent = styled.div`
   align-items: center;
   max-width: 800px;
   width: 80%;
-  margin: 20px;
+  margin: 10px;
   padding: 20px;
   border: 1px solid #ddd;
 `;
@@ -232,7 +238,7 @@ const ButtonContainer = styled.div`
   gap: 20px;
 `;
 const MyPageButton = styled.button`
-  background-color: #4c98af;
+  background-color: #8fbcce;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -240,10 +246,9 @@ const MyPageButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  /*   transition: all 0.2s ease-in-out; */
 
   &:hover {
-    background-color: #5c88af;
+    background-color: #5aa4c7;
   }
   &:disabled {
     background-color: #ccc;

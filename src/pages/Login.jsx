@@ -151,11 +151,11 @@ const Button = styled.button`
   border-radius: 8px;
   color: white;
   font-weight: 600;
-  background-color: #67abe2;
+  background-color: #abcde4;
   width: 150px;
   cursor: pointer;
   font-size: 20px;
   &:hover {
-    background-color: #5c88af;
+    background-color: #8fbcce;
   }
 `;

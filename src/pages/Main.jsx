@@ -113,7 +113,7 @@ const UserList = styled.div`
 
 const All = styled.div`
   &:hover {
-    color: #2c84be;
+    color: #4885ad;
   }
   font-size: 27px;
   font-weight: bold;

@@ -53,15 +53,12 @@ function SignUp() {
       setUserInfo({ title: "specialty", content: e.target.dataset.specialty })
     );
   };
-
   const mbtiClickHandler = (e) => {
     dispatch(setUserInfo({ title: "mbti", content: e.target.dataset.mbti }));
   };
-
   const modalCloseHandler = () => {
     setModalOpen(!modalOpen);
   };
-
   const navigate = useNavigate();
 
   // PW확인 입력값만 제외
@@ -110,7 +107,7 @@ function SignUp() {
   return (
     <SignUpWrapper>
       <h1>회원가입</h1>
-      <div id='left-n-right'>
+      <div id="left-n-right">
         <div>
           {userInfoForm.slice(0, 6).map((item) => {
             return (
@@ -129,18 +126,18 @@ function SignUp() {
           {userInfoForm.slice(6, 11).map((item) => {
             return <SignUpInput key={item.title} item={item}></SignUpInput>;
           })}
-          <p>*은 필수입력값입니다.</p>
+          <p> *은 필수입력값입니다🙏🙏</p>
         </div>
       </div>
       <button onClick={signUpButtonHandler}>가입</button>
       {modalOpen && (
-        <div onClick={modalCloseHandler} id='translucent'>
+        <div onClick={modalCloseHandler} id="translucent">
           {whichModal === 1 ? (
-            <div id='modal1'>
+            <div id="modal1">
               {specialty.map((item, index) => (
                 <div
                   data-specialty={item}
-                  className='specialty-selector'
+                  className="specialty-selector"
                   key={index}
                   onClick={(e) => specialtyClickHandler(e)}
                 >
@@ -149,11 +146,11 @@ function SignUp() {
               ))}
             </div>
           ) : (
-            <div id='modal2'>
+            <div id="modal2">
               {mbti.map((item, index) => (
                 <div
                   data-mbti={item}
-                  className='mbti-selector'
+                  className="mbti-selector"
                   key={index}
                   onClick={(e) => mbtiClickHandler(e)}
                 >
@@ -167,6 +164,111 @@ function SignUp() {
     </SignUpWrapper>
   );
 }
+
+const SignUpWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #left-n-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      margin-right: 2rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      p {
+        margin-top: 1rem;
+        color: #0095f6;
+      }
+    }
+  }
+
+  button {
+    background-color: #abcde4;
+    color: white;
+    border: none;
+    padding: 0.5rem 2rem;
+    border-radius: 0.3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    &:hover {
+      background-color: #5aa4c7;
+    }
+  }
+
+  #translucent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    #modal1,
+    #modal2 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 50%;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .specialty-selector,
+    .mbti-selector {
+      background-color: #f2f2f2;
+      color: #333;
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #d9d9d9;
+      }
+    }
+  }
+`;
+/* 
+const SignUpInput = styled.input`
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid #0095f6;
+  }
+`;
 
 const SignUpWrapper = styled.div`
   width: 100vh;
@@ -264,6 +366,6 @@ const SignUpWrapper = styled.div`
     color: white;
     background-color: #ff7f50;
   }
-`;
+`; */
 
 export default SignUp;

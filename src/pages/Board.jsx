@@ -114,7 +114,8 @@ const BoardWrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 25px;
     gap: 10px;
 
     > input {
@@ -127,18 +128,19 @@ const BoardWrapper = styled.div`
     }
 
     > button {
-      background-color: #5a8fad;
-      color: #fff;
+      padding: 8px 16px;
       border: none;
       border-radius: 8px;
-      padding: 10px;
-      font-size: 18px;
+      background-color: #8fbcce;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
     }
   }
 `;
 const BoardCard = styled.div`
-  width: 30%;
+  width: 300px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -150,25 +152,20 @@ const BoardCard = styled.div`
     top: 5px;
     right: 5px;
     font-size: 12px;
-    font-weight: bold;
-    color: #757575;
     cursor: pointer;
   }
 
   p {
-    margin: 0 0 10px;
-    font-size: 16px;
-    line-height: 1.4;
+    margin: 5px 0;
   }
 
   .author-wrapper {
-    display: flex;
-    justify-content: flex-end;
+    margin-top: 10px;
   }
 
   .posting-author {
     font-size: 14px;
-    color: #757575;
+    color: #666;
   }
 `;
 

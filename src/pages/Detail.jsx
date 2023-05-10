@@ -218,7 +218,7 @@ const ReplyArea = styled.div`
   }
 
   #submit-button {
-    background-color: #65b1e4;
+    background-color: #97bfda;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -229,7 +229,7 @@ const ReplyArea = styled.div`
   }
 
   #submit-button:hover {
-    background-color: #2980b9;
+    background-color: #62a1ca;
   }
 `;
 /*

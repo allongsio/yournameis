@@ -60,7 +60,7 @@ const HeaderWrapper = styled.div`
     cursor: pointer;
 
     svg {
-      fill: #4c98af;
+      fill: #62a1ca;
       margin-right: 5px;
     }
   }
@@ -80,7 +80,7 @@ const HeaderWrapper = styled.div`
       }
 
       &.odd {
-        color: #4c98af;
+        color: #62a1ca;
       }
 
       &.even {
