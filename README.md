@@ -35,7 +35,9 @@
 **Front-end**
 
 - Javascript, React
-  **Cowork**
+
+**Cowork**
+
 - Git, Slack
 
 ## 사용한 라이브러리
