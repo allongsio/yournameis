@@ -66,7 +66,8 @@ function SignUpInput({
             userInfoIncludeConfirm.mbti
           ) : (
             <>
-              MBTI 선택 <TriangleIcon />
+              MBTI 선택
+              <TriangleIcon />
             </>
           )}
         </div>
@@ -83,36 +84,36 @@ function SignUpInput({
     </SignUpInputWrapper>
   );
 }
-
 const SignUpInputWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 300px;
-  margin: 20px;
-
+  align-items: center;
+  margin-bottom: 24px;
+  margin-left: 20px;
   span {
-    font-size: 15px;
-    font-weight: 400;
-    margin-right: 20px;
-    color: ${(props) => props.mandatory === true && "#0095f6"};
-    font-weight: bold;
+    flex-basis: 120px;
+    font-size: 16px;
+    font-weight: 700;
   }
-
+  input,
+  .modal-opener {
+    height: 56px;
+    width: 250px;
+    padding: 0 16px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #4a4a4a;
+    display: flex;
+    align-items: center;
+    background-color: white;
+  }
   .modal-opener {
     display: flex;
     justify-content: center;
-    height: 20px;
-    width: 150px;
-    border: 1px solid black;
-    color: grey;
-    font-size: 15px;
+    align-items: center;
+    cursor: pointer;
   }
-
-  #signup-mypage-input {
-    height: 25px;
-    border-radius: 5px;
-  }
-
   input::placeholder {
     text-align: center;
   }

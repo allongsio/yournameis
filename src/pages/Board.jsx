@@ -52,7 +52,6 @@ function Board() {
   // 게시물 제출 핸들러 함수
   const onSubmitButtonClickHandler = () => {
     postingSubmitApi.mutate({ posting: input, authorization });
-    // setInput({ title: "", content: "" });
   };
 
   // 게시물 삭제 핸들러 함수
@@ -72,26 +71,28 @@ function Board() {
     <BoardWrapper>
       <div>
         <h3>제목 : </h3>
-        <input id='title' onChange={(e) => onChangeHandler(e)} />
+        <input id="title" onChange={(e) => onChangeHandler(e)} />
         <h3>내용 : </h3>
-        <input id='content' onChange={(e) => onChangeHandler(e)} />
-        <button onClick={onSubmitButtonClickHandler}>입력</button>
+        <input id="content" onChange={(e) => onChangeHandler(e)} />
+        <button type="submit" onClick={onSubmitButtonClickHandler}>
+          입력
+        </button>
       </div>
-      <div id='board-card-area' style={{ display: "flex", flexWrap: "wrap" }}>
+      <div id="board-card-area" style={{ display: "flex", flexWrap: "wrap" }}>
         {data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span
                 id={item.id}
                 onClick={(e) => deleteButtonHandler(e)}
-                className='delete-button'
+                className="delete-button"
               >
                 x
               </span>
-              <p>{item.title}</p>
+              <Title>{item.title}</Title>
               <p>{item.content}</p>
-              <div className='author-wrapper'>
-                <p className='posting-author'>{item.author}</p>
+              <div className="author-wrapper">
+                <p className="posting-author">{item.author}</p>
               </div>
             </BoardCard>
           );
@@ -109,7 +110,8 @@ const BoardWrapper = styled.div`
 
   #board-card-area {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    width: 80%;
+    grid-template-columns: repeat(12, 1fr);
     gap: 20px;
   }
 
@@ -137,11 +139,14 @@ const BoardWrapper = styled.div`
       border-radius: 8px;
       background-color: #8fbcce;
       color: #fff;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: bold;
       cursor: pointer;
     }
   }
+`;
+const Title = styled.h3`
+  font-size: 20px;
 `;
 const BoardCard = styled.div`
   width: 300px;
@@ -169,6 +174,7 @@ const BoardCard = styled.div`
 
   .posting-author {
     font-size: 14px;
+
     color: #666;
   }
 `;

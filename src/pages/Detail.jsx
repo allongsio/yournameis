@@ -88,49 +88,56 @@ function Detail() {
   return (
     <div>
       <DetailPageWrapper>
-        <img src={data.user.imageUrl} />
         <DetailComponent>
-          <img src={data.user.imgUrl} />
+          <img src={data.user.imageUrl} />
+          {/* <img src={data.user.imgUrl} /> */}
           {dataForm.map((item, index) => (
             <p key={index}>
               {item[0]} : {item[1]}
             </p>
           ))}
           <div id="reply-area">
-            <div>
-              <input onChange={(e) => setInput(e.target.value)} value={input} />
+            <ReplyInput>
+              댓글
+              <input
+                onChange={(e) => setInput(e.target.value)}
+                value={input}
+                placeholder="코멘트를 남겨보세요😎"
+              />
               <button id="submit-button" onClick={onSubmitButtonHandler}>
                 작성
               </button>
-            </div>
+            </ReplyInput>
             {data.comments.map((item) => (
               <IndividualReply key={item.id}>
-                <div>
-                  <img src={data.user.imageUrl} className="reply-thumbnail" />
+                <ReplyWrapper>
+                  {/*    <img src={data.user.imageUrl} className="reply-thumbnail" /> */}
+                  <img src={item.imageUrl} className="reply-thumbnail" />
                   <span className="commentName">{item.username}</span>
-                  &nbsp;&nbsp;&nbsp;
+                  <span className="divider">|</span>
                   <span className="commentContent">{item.content}</span>
-                </div>
-                <div id="button-area">
-                  <button
-                    data-id={item.id}
-                    onClick={(e) => deleteButtonHandler(e)}
-                  >
-                    삭제
-                  </button>
-                  {item.enabled ? (
-                    <LikeIconFilled
-                      id={item.id}
-                      onClick={(e) => likeButtonHandler(e)}
-                    />
-                  ) : (
-                    <LikeIcon
-                      id={item.id}
-                      onClick={(e) => likeButtonHandler(e)}
-                    />
-                  )}
-                  <span>{item.likeCount}</span>
-                </div>
+
+                  <div id="button-area">
+                    <button
+                      data-id={item.id}
+                      onClick={(e) => deleteButtonHandler(e)}
+                    >
+                      삭제
+                    </button>
+                    {item.enabled ? (
+                      <LikeIconFilled
+                        id={item.id}
+                        onClick={(e) => likeButtonHandler(e)}
+                      />
+                    ) : (
+                      <LikeIcon
+                        id={item.id}
+                        onClick={(e) => likeButtonHandler(e)}
+                      />
+                    )}
+                    <span>{item.likeCount}</span>
+                  </div>
+                </ReplyWrapper>
               </IndividualReply>
             ))}
           </div>
@@ -139,113 +146,157 @@ function Detail() {
     </div>
   );
 }
-
 const DetailPageWrapper = styled.div`
-<<<<<<< HEAD
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 850px;
+  margin-top: 50px;
 `;
 
 const DetailComponent = styled.div`
-  /*   display: flex;
-  flex-direction: column; */
-  width: 700px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border: 1px solid gray;
-  border-radius: 10px;
+  border: 1px solid black;
   padding: 20px;
+  border-radius: 5px;
+  width: 50%;
+
+  img {
+    width: 100px;
+
+    border-radius: 50%;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  #reply-area {
+    width: 100%;
+    margin-top: 20px;
+
+    div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      input {
+        width: 70%;
+        margin-right: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        font-size: 17px;
+      }
+
+      button {
+        background-color: lightblue;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #74a2b8;
+        }
+      }
+    }
+
+    .commentName {
+      font-weight: bold;
+    }
+
+    .commentContent {
+      margin-left: 10px;
+    }
+
+    #button-area {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+
+      button {
+        margin-right: 10px;
+        background-color: lightblue;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #74a2b8;
+        }
+      }
+
+      span {
+        margin-right: 10px;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+
+        &:hover {
+          color: #7fabd6;
+        }
+      }
+    }
+  }
+`;
+const ReplyInput = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
 `;
 
 const IndividualReply = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  /*   border: 1px solid gray; */
   padding: 10px;
-
-  & .commentName {
-    font-weight: bold;
-    font-size: 16px;
-  }
-
-  & .commentContent {
-    font-size: 14px;
-  }
-
-  & #button-area {
-    display: flex;
-    align-items: center;
-  }
-
-  & button {
-    border: none;
-    background-color: transparent;
-    font-size: 12px;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-
-  & button:hover {
-    color: #f44336;
-  }
-
-  & .delete-button {
-    position: relative;
-  }
-
-  & .delete-button::before,
-  .delete-button::after {
-    content: "";
-    position: absolute;
-    width: 2px;
-    height: 14px;
-    background-color: #ccc;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  & .delete-button::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-  }
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 90%;
 `;
 
-const ReplyArea = styled.div`
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-top: 20px;
+const ReplyWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
 
-  input {
-    border: none;
-    border: 1px solid #d1cccc;
-    border-radius: 8px;
-    margin-right: 10px;
-    font-size: 1.1rem;
-    padding: 5px;
-    width: 300px;
-    margin-bottom: 10px;
+  .reply-thumbnail {
+    margin-right: 0.5rem;
+    width: 33px;
+    height: 50px;
   }
 
-  #submit-button {
-    background-color: #97bfda;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 20px;
-    cursor: pointer;
-    margin-bottom: 10px;
+  .commentName {
+    margin-right: 0.3rem;
     font-weight: bold;
   }
 
-  #submit-button:hover {
-    background-color: #62a1ca;
+  .divider {
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+  }
+
+  .commentContent {
+    flex: 1;
+  }
+
+  #button-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

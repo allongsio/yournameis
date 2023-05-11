@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { login } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import poster from "../img/poster.jpg";
 function Login() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
@@ -103,6 +103,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url(${poster});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
 `;
 
 const FormContainer = styled.div`
@@ -111,8 +116,8 @@ const FormContainer = styled.div`
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #f8f8f8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  /*   background-color: #f8f8f8; */
   width: 400px;
   max-width: 90%;
 `;
