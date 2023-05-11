@@ -52,6 +52,7 @@ function Board() {
   // 게시물 제출 핸들러 함수
   const onSubmitButtonClickHandler = () => {
     postingSubmitApi.mutate({ posting: input, authorization });
+    setInput({ title: "", content: "" });
   };
 
   // 게시물 삭제 핸들러 함수
@@ -71,28 +72,36 @@ function Board() {
     <BoardWrapper>
       <div>
         <h3>제목 : </h3>
-        <input id="title" onChange={(e) => onChangeHandler(e)} />
+        <input
+          id='title'
+          value={input.title}
+          onChange={(e) => onChangeHandler(e)}
+        />
         <h3>내용 : </h3>
-        <input id="content" onChange={(e) => onChangeHandler(e)} />
-        <button type="submit" onClick={onSubmitButtonClickHandler}>
+        <input
+          id='content'
+          value={input.content}
+          onChange={(e) => onChangeHandler(e)}
+        />
+        <button type='submit' onClick={onSubmitButtonClickHandler}>
           입력
         </button>
       </div>
-      <div id="board-card-area" style={{ display: "flex", flexWrap: "wrap" }}>
+      <div id='board-card-area' style={{ display: "flex", flexWrap: "wrap" }}>
         {data.map((item, index) => {
           return (
             <BoardCard key={index}>
               <span
                 id={item.id}
                 onClick={(e) => deleteButtonHandler(e)}
-                className="delete-button"
+                className='delete-button'
               >
                 x
               </span>
               <Title>{item.title}</Title>
               <p>{item.content}</p>
-              <div className="author-wrapper">
-                <p className="posting-author">{item.author}</p>
+              <div className='author-wrapper'>
+                <p className='posting-author'>{item.author}</p>
               </div>
             </BoardCard>
           );
