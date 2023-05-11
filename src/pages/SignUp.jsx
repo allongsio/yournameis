@@ -20,8 +20,8 @@ function SignUp() {
     { title: "E-mail", mandatory: false, type: "email" },
     { title: "블로그", mandatory: false, type: "blogurl" },
     { title: "github URL", mandatory: false, type: "githuburl" },
-    { title: "코멘트할 사람", mandatory: false, type: "commentuser" },
-    { title: "코멘트 내용", mandatory: false, type: "commentcontent" },
+    // { title: "코멘트할 사람", mandatory: false, type: "commentuser" },
+    // { title: "코멘트 내용", mandatory: false, type: "commentcontent" },
   ];
 
   const specialty = ["React", "Spring", "NodeJS"];
@@ -106,7 +106,7 @@ function SignUp() {
     <SignUpWrapper>
       <Wrap>
         <h1>회원가입</h1>
-        <div id="left-n-right">
+        <div id='left-n-right'>
           <div>
             {userInfoForm.slice(0, 6).map((item) => {
               return (
@@ -122,7 +122,7 @@ function SignUp() {
             })}
           </div>
           <div>
-            {userInfoForm.slice(6, 11).map((item) => {
+            {userInfoForm.slice(6, 9).map((item) => {
               return <SignUpInput key={item.title} item={item}></SignUpInput>;
             })}
 
@@ -139,13 +139,13 @@ function SignUp() {
         </div>
         <button onClick={signUpButtonHandler}>가입</button>
         {modalOpen && (
-          <div onClick={modalCloseHandler} id="translucent">
+          <div onClick={modalCloseHandler} id='translucent'>
             {whichModal === 1 ? (
-              <div id="modal1">
+              <div id='modal1'>
                 {specialty.map((item, index) => (
                   <div
                     data-specialty={item}
-                    className="specialty-selector"
+                    className='specialty-selector'
                     key={index}
                     onClick={(e) => specialtyClickHandler(e)}
                   >
@@ -154,13 +154,13 @@ function SignUp() {
                 ))}
               </div>
             ) : (
-              <div id="modal2">
+              <div id='modal2'>
                 <h2>당신의 MBTI를 알려주세요!</h2>
                 <p>아래에서 당신에게 가장 적합한 유형을 선택해주세요😊</p>
                 {mbti.map((item, index) => (
                   <div
                     data-mbti={item}
-                    className="mbti-selector"
+                    className='mbti-selector'
                     key={index}
                     onClick={(e) => mbtiClickHandler(e)}
                   >

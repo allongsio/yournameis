@@ -54,7 +54,7 @@ const replySubmit = async ({ user_id, content, authorization }) => {
   }
 };
 
-// 댓글 삭제api, method : delete, url : /api/user/{user_id}/comment/{id}
+// 댓글 삭제api, method : delete, url : /api/members/{user_id}/comments/{id}
 const replyDelete = async ({ user_id, replyId, authorization }) => {
   console.log(user_id, replyId, authorization);
   try {
@@ -73,7 +73,7 @@ const replyDelete = async ({ user_id, replyId, authorization }) => {
   }
 };
 
-// 댓글 좋아요api, method : post, url : /api/user/{user_id}/comment/{id}/like
+// 댓글 좋아요api, method : post, url : /api/members/{user_id}/comments/{id}/like
 const replyLike = async ({ user_id, replyId, authorization }) => {
   try {
     const response = await axios.post(
